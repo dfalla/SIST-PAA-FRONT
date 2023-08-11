@@ -10,7 +10,8 @@ export const PRODUCT = {
 
 export const AUTH = {
     login       : '/auth/login',
-    register    : '/auth/register'  
+    register    : '/auth/register',
+    msgLogin    : 'Usuario Logueado' 
 }
 
 export const URL = {

@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { Navbar } from ".";
 // import { Sidebar } from "./";
 type JSXComponent = () => JSX.Element;
 interface Props {
@@ -13,12 +14,17 @@ export const ProtectedRoutes = ({
   children,
   redirectTo = "/auth/login",
 }: Props) => {
-  if (!isAllowed) return <Navigate to={redirectTo} />;
+
+  console.log("isAllowed desde App", isAllowed)
+
+  
+  if (isAllowed === false) return <Navigate to={redirectTo} />;
+  
   return (
     <>
-      {/* <Sidebar> */}
+      <Navbar>
         {children ? children : <Outlet />}
-      {/* </Sidebar> */}
+      </Navbar>
     </>
   )
 };

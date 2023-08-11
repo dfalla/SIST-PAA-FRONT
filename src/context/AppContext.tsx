@@ -1,24 +1,21 @@
-import { createContext, useState, memo, Dispatch, SetStateAction } from 'react';
+import { createContext, memo } from 'react';
 import { SafeAny } from '@/common';
-import { Profile } from '@/interfaces';
-
-
 interface AppContextProps {
-    profile: Profile | null;
-    setProfile: Dispatch<SetStateAction<Profile | null>>;
+    logout: () => void;
 }
 
 export const AppContext = createContext<AppContextProps | undefined>(undefined);
 
 export const AppProvider: React.FC<SafeAny> = memo(( {children} ) => {
-    const [profile, setProfile] = useState<Profile | null>(null);
+
+    const logout = () => {
+        localStorage.removeItem('profile');
+    }
 
     return ( 
         <AppContext.Provider
             value={{ 
-                profile,
-                setProfile,
-                
+                logout,
             }}
         >
             { children }

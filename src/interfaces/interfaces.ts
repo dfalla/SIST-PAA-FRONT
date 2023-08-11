@@ -8,6 +8,7 @@ export interface Profile {
     name: string;
     lastName: string;
     token: string;
+    msg: string;
 }
 
 export interface InitialValues{

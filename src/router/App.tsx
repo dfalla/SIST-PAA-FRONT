@@ -1,29 +1,24 @@
 import { Container, ProtectedRoutes } from "@/common";
-import { useAppContext } from "@/context";
-import { LoginPage } from "@/features";
+import { LoginPage, Students } from "@/features";
+import { useAuthStore } from "@/store";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const App = () => {
 
- const { profile } =  useAppContext();
-
-  const isAlowed = profile !== null ? true : false;
-
-
+  const isAuthenticated = useAuthStore((state)=>state.isAuth);
+  
   return (
     <BrowserRouter>
         <Container>
-            <Routes>
-                <Route path="/auth/login" element={<LoginPage/>} />
+          <Routes>
+            <Route path="/auth/login" element={<LoginPage/>} />
 
-                <Route path="/" element={<ProtectedRoutes isAllowed={isAlowed}/>}>
+            <Route path="/" element={<ProtectedRoutes isAllowed={isAuthenticated}/>}>
+              <Route index element={<Students/>} />
+            </Route>
 
-                </Route>
-                <Route path="/*" element={<Navigate to="/"/>}/>
-            </Routes>
-
-
-
+            <Route path="/*" element={<Navigate to="/"/>}/>
+          </Routes>
         </Container>
     </BrowserRouter>
   )
