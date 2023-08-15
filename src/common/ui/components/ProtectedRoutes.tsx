@@ -15,9 +15,6 @@ export const ProtectedRoutes = ({
   redirectTo = "/auth/login",
 }: Props) => {
 
-  console.log("isAllowed desde App", isAllowed)
-
-  
   if (isAllowed === false) return <Navigate to={redirectTo} />;
   
   return (
