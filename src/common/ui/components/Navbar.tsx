@@ -1,4 +1,6 @@
 import { ReactNode } from 'react'
+import { NavLink } from "react-router-dom";
+
 import {
     Box,
     Flex,
@@ -24,25 +26,40 @@ import {
 import { useAuthStore } from '@/store'
   
   interface Props {
-    children: ReactNode
+    children: ReactNode;
+    path: string;
+  }
+
+  interface LinkItemProps {
+    name: string;
+    path: string;
   }
   
-  const Links = ['Alumnos', 'Pagos', 'Horarios']
+  const Links: Array<LinkItemProps> = [
+    { 
+      name: 'Alumnos', 
+      path: '/students', 
+    },
+    { 
+      name: 'Pagos', 
+      path: '/pays', 
+    },
+    { 
+      name: 'Horarios', 
+      path: '/schedules', 
+    },
+  ]
   
-  const NavLink = (props: Props) => {
-    const { children } = props
+  const Navigation = ({ children, path}: Props) => {
   
     return (
       <Box
-        as="a"
+        as={NavLink}
         px={2}
         py={1}
         rounded={'md'}
-        _hover={{
-          textDecoration: 'none',
-          bg: useColorModeValue('gray.200', 'gray.700'),
-        }}
-        href={'#'}>
+        to={path}
+      >
         {children}
       </Box>
     )
@@ -73,9 +90,10 @@ import { useAuthStore } from '@/store'
                 />
               </Box>
               <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
-                {Links.map((link) => (
+                {Links.map(({ name, path }) => (
+                  
                   <Text
-                    key={link}
+                    key={name}
                     color ='black'
                     _hover={{
                       color: '#FAAC06',
@@ -86,7 +104,9 @@ import { useAuthStore } from '@/store'
                       
                     }}
                   >
-                    {link}
+                    <Navigation path={path}>
+                      {name}
+                    </Navigation>
                   </Text>
                 ))}
               </HStack>
@@ -139,8 +159,8 @@ import { useAuthStore } from '@/store'
           {isOpen ? (
             <Box pb={4} display={{ md: 'none' }}>
               <Stack as={'nav'} spacing={4}>
-                {Links.map((link) => (
-                  <NavLink key={link}>{link}</NavLink>
+                {Links.map(({ name, path }) => (
+                  <Navigation key={name} path={path}>{name}</Navigation>
                 ))}
               </Stack>
             </Box>

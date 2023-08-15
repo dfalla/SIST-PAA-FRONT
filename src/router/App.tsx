@@ -1,5 +1,5 @@
 import { Container, ProtectedRoutes } from "@/common";
-import { LoginPage, Students } from "@/features";
+import { LoginPage, Payments, Schedules, Students } from "@/features";
 import { useAuthStore } from "@/store";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -15,6 +15,9 @@ export const App = () => {
 
             <Route path="/" element={<ProtectedRoutes isAllowed={isAuthenticated}/>}>
               <Route index element={<Students/>} />
+              <Route path="/students" element={<Students/>} />
+              <Route path="/pays" element={<Payments/>} />
+              <Route path="/schedules" element={<Schedules/>} />
             </Route>
 
             <Route path="/*" element={<Navigate to="/"/>}/>
