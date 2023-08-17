@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+
 import { NavLink } from "react-router-dom";
 
 import {
@@ -18,12 +19,24 @@ import {
     Text,
     Stack,
     VStack,
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionPanel,
+    AccordionIcon,
 } from '@chakra-ui/react'
+
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
+
 import {
   FiChevronDown,
 } from 'react-icons/fi';
 import { useAuthStore } from '@/store'
+
+interface SubContent {
+  title: string;
+  path: string;
+}
   
   interface Props {
     children: ReactNode;
@@ -33,12 +46,31 @@ import { useAuthStore } from '@/store'
   interface LinkItemProps {
     name: string;
     path: string;
+    subContent?: SubContent[];
+  }
+
+  interface PROPERTIESHOVERANDACTIVE {
+    color: string;
+    bg: string;
+    cursor: string;
+    borderBottom: string;
+    borderRadius: string;
   }
   
   const Links: Array<LinkItemProps> = [
     { 
       name: 'Alumnos', 
-      path: '/students', 
+      path: '/students',
+      subContent: [
+        {
+          title: 'Alumnos Registrados',
+          path: '/students/all'
+        },
+        {
+          title: 'Exportar Alumnos',
+          path: '/students/export'
+        } 
+      ]
     },
     { 
       name: 'Pagos', 
@@ -64,6 +96,30 @@ import { useAuthStore } from '@/store'
       </Box>
     )
   }
+
+  const propertiesHoverAndActive: PROPERTIESHOVERANDACTIVE = {
+    color: '#FAAC06',
+    bg: 'inherit',
+    cursor: 'pointer',
+    borderBottom: '3px #FAAC06 solid',
+    borderRadius: '5%'
+  }
+
+
+  const ItemTextComponent = ({path, name}: {path: string, name: string})=>{
+    return (
+      <Text
+        color ='black'
+        _hover={propertiesHoverAndActive}
+      >
+        <Navigation path={path}>
+          {name}
+        </Navigation>
+      </Text>
+    )
+  }
+
+  
   
   export const Navbar = ({ children }: Props) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -90,24 +146,44 @@ import { useAuthStore } from '@/store'
                 />
               </Box>
               <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
-                {Links.map(({ name, path }) => (
-                  
-                  <Text
-                    key={name}
-                    color ='black'
-                    _hover={{
-                      color: '#FAAC06',
-                      bg: 'inherit',
-                      cursor: 'pointer',
-                      borderBottom: '3px #FAAC06 solid',
-                      borderRadius: '5%'
-                      
-                    }}
-                  >
-                    <Navigation path={path}>
-                      {name}
-                    </Navigation>
-                  </Text>
+                {Links.map((link) => (
+                   link.hasOwnProperty('subContent') 
+                   ? (
+                    <Menu key={link.name}>
+                      {({isOpen})=>(
+                        <>
+                          <MenuButton 
+                            as={Button} 
+                            color ='black'
+                            isActive={isOpen}
+                            _active={propertiesHoverAndActive}
+                            _hover={propertiesHoverAndActive}
+                          >
+                            Alumnos
+                          </MenuButton>
+
+                          <MenuList>
+                            {
+                              link.subContent!.map((item)=>(
+                                <MenuItem 
+                                  key={item.title}
+                                  as={NavLink} 
+                                  to={item.path}
+                                >
+                                  {item.title}
+                                </MenuItem>
+                              ))
+                            }
+                          </MenuList>
+                        
+                        </>
+                      )}
+                    </Menu>
+                   ) 
+                   : (
+                    <ItemTextComponent key={link.name} path={link.path} name={link.name}/>
+                   )
+
                 ))}
               </HStack>
             </HStack>
@@ -159,8 +235,62 @@ import { useAuthStore } from '@/store'
           {isOpen ? (
             <Box pb={4} display={{ md: 'none' }}>
               <Stack as={'nav'} spacing={4}>
-                {Links.map(({ name, path }) => (
+                {/* {Links.map(({ name, path }) => (
                   <Navigation key={name} path={path}>{name}</Navigation>
+                ))} */}
+                 {Links.map((link) => (
+                   link.hasOwnProperty('subContent') 
+                   ? (
+                    <Accordion key={link.name} allowToggle> 
+                      <AccordionItem border={'none'}>
+                          <AccordionButton 
+                            width={'100%'}
+                            padding='0px'
+                            paddingRight={'5px'}
+                          >
+                            <Button 
+                              as={Box}
+                              flex='1'
+                              textAlign='left'
+                              pl={2} 
+                              color={'black'}
+                              _active={propertiesHoverAndActive}
+                              _hover={propertiesHoverAndActive}
+                            >
+
+                              <Box flex='1' textAlign='start'>
+                                {link.name}
+                              </Box>
+
+                              <AccordionIcon/>
+
+                            </Button>
+                          </AccordionButton>
+
+                          <AccordionPanel pb={4}>
+                            { link.subContent!.map((item)=>(
+                                
+                              <Button
+                                as={NavLink}
+                                to={item.path}
+                                key={item.title}
+                                width={'100%'}
+                                color='black' 
+                              >
+                                <Box as="span" flex='1' textAlign='left'>
+                                  {item.title}
+                                </Box>
+                              
+                              </Button>
+                            ))}
+                          </AccordionPanel>
+                      </AccordionItem>
+                    </Accordion>
+                   ) 
+                   : (
+                    <ItemTextComponent key={link.name} path={link.path} name={link.name}/>
+                   )
+
                 ))}
               </Stack>
             </Box>

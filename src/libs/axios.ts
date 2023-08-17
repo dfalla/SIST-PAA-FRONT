@@ -1,6 +1,6 @@
 import { URL } from "@/constants";
 import Axios from "axios";
-// import { useAuthStore } from "../store/auth";
+import { useAuthStore } from "../store/auth";
 
 // const baseURL =
 //   process.env.NODE_ENV === "production"
@@ -20,11 +20,11 @@ const api = Axios.create({
 
 api.interceptors.request.use((config) => {
   
-    // const token = useAuthStore.getState().token;
+    const token = useAuthStore.getState().token;
 
-    // if (config && config.headers) { 
-    //   config.headers["x-token"] = token
-    // }
+    if (config && config.headers) { 
+      config.headers["x-token"] = token
+    }
   
   return config;
 });

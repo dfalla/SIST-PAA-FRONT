@@ -34,6 +34,7 @@ export const LoginPage = ()=> {
       <Flex flex={1}>
       <Image
         alt={'Login Image'}
+        display={{ base: 'none', md:'block' }}
         objectFit={'cover'}
         src={
           'https://res.cloudinary.com/dlbsdgti4/image/upload/v1690913513/students/logo_uumjsi.jpg'
