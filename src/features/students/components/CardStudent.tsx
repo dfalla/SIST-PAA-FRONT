@@ -1,3 +1,4 @@
+import { CustomModal } from '@/common';
 import {
   Box,
   useColorModeValue,
@@ -7,16 +8,24 @@ import {
   Image,
   Button,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 export interface CardArgs{
-  id_student?: string;
+  id_student: string;
   name: string;
   last_name: string;
   mother_last_name: string;
   image: string;
 }
 
-export const CardStudent = ({image, last_name, mother_last_name, name}: CardArgs) => {
+export const CardStudent = ({id_student, image, last_name, mother_last_name, name}: CardArgs) => {
+  
+  const navigate = useNavigate();
+
+  const editStudent = (id_student: string) => {
+    navigate(`/students/${id_student}`)
+  }
+  
   return (
     <Box
       role={'group'}
@@ -67,7 +76,7 @@ export const CardStudent = ({image, last_name, mother_last_name, name}: CardArgs
       </Stack>
       <Stack mt={8} direction={'row'} spacing={4}>
         <Button
-        //   onClick={() => editProduct(id_student, variant)}
+          onClick={() => editStudent(id_student)}
           flex={1}
           fontSize={'sm'}
           rounded={'full'}
@@ -82,17 +91,15 @@ export const CardStudent = ({image, last_name, mother_last_name, name}: CardArgs
         >
           Editar
         </Button>
-        <Button 
-          onClick={()=>{
-            // deleteItem(id_student)
-          }}
-          colorScheme='red'
-          flex={1}
-          fontSize={'sm'}
-          rounded={'full'}
-        >
-          Eliminar 
-        </Button>
+        <CustomModal
+          color={'red'}
+          id_student={id_student}
+          last_name={last_name}
+          mother_last_name={mother_last_name}
+          msg={'Estás seguro de eliminar al alumn@: '}
+          name={name}
+          text={'Eliminar alumno'}
+        />
       </Stack>
     </Box>
   )

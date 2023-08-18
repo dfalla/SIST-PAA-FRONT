@@ -1,4 +1,4 @@
-import { deleteAceite } from "@/api";
+import { deleteStudent } from "@/api";
 import { FEATURES, MESSAGES_NOTIFICATIONS } from "@/constants";
 import { useToast } from "@chakra-ui/react";
 import {  useMutation, useQueryClient } from "@tanstack/react-query"
@@ -10,7 +10,7 @@ export const useDeleteStudent = () => {
     const toast = useToast();
   
     const { mutate } = useMutation({
-      mutationFn: deleteAceite,
+      mutationFn: deleteStudent,
       onSuccess: async()=>{
         toast({
           title: `${MESSAGES_NOTIFICATIONS.deleted}`,

@@ -25,8 +25,6 @@ export const useAddStudent = () => {
       }
     })
 
-    console.log("error", addStudent.isError);
-  
     return {
       addStudent,
     }

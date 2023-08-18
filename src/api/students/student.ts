@@ -27,7 +27,6 @@ export const geStudentById = async(id: string) =>{
 }
 
 export const createStudent = async( values: Student) => {
-    console.log("values desde create student", values)
     const formData = new FormData();
 
     for(const key in values){
@@ -35,9 +34,8 @@ export const createStudent = async( values: Student) => {
     }
 
     try {
-        const { data } = await Http.post(`/${URL}`, formData)
+        await Http.post(`/${URL}`, formData)
 
-        console.log("data", data);
     } catch (error) {
         console.log('error', error)
     }
@@ -52,17 +50,15 @@ export const updateStudent = async({id_student, values} : UpdateStudenttArgs) =>
     }
 
     try {
-        const { data } = await Http.put(`/${URL}/${id_student}`, formData)
-        console.log("data update desde la api", data)
+        await Http.put(`/${URL}/${id_student}`, formData)
     } catch (error) {
         console.log('error capturado 😤', error)
     }
 }
 
-export const deleteAceite = async(id_student: string) => {
+export const deleteStudent = async(id_student: string) => {
     try {
-        const { data } = await Http.delete(`/${URL}/${id_student}`);
-        console.log("data delete desde la api", data)
+        await Http.delete(`/${URL}/${id_student}`);
     } catch (error) {
         console.log('error', error)
     }

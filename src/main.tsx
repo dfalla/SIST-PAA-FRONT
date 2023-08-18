@@ -7,6 +7,7 @@ import { AppProvider } from './context'
 import theme from './theme'
 // import { Demo } from './demo'
 import { App } from './router'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <AppProvider>
           {/* <Demo/> */}
           <App/>
+          <ReactQueryDevtools initialIsOpen={false} />
         </AppProvider>
       </QueryClientProvider>
     </ChakraProvider>

@@ -1,4 +1,4 @@
-import  { useEffect, useRef, useState }  from 'react';
+import  { useCallback, useEffect, useRef, useState}  from 'react';
 
 
 import {
@@ -18,57 +18,110 @@ import {
 
 import { Formik, Form } from 'formik';
 
-// import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
-import { InputField, SafeAny } from "@/common";
+import { FC } from 'react';
+import { CustomModal, InputField, SafeAny } from "@/common";
 import { INITIALVALUES, validationSchema } from '../domain';
-import { useAddStudent } from '../hooks';
+import { useAddStudent, useEditStudent } from '../hooks';
+import { Student } from '@/interfaces';
 
+interface Props {
+    edit: boolean | undefined;
+}
 
-export const FormStudent = () => {
+export const FormStudent: FC<Props> = ({ edit }) => {
+
+  const [initialValues, setInitialValues] = useState<Student>(INITIALVALUES);
 
     const { isOpen, onOpen, onClose,  } = useDisclosure()
 
     const initialRef = useRef(null)
     const finalRef = useRef(null)
 
+    const params = useParams();
+    const navigate = useNavigate();
+
     const { addStudent } = useAddStudent();
 
+    const { data, editStudent } = useEditStudent({ parameter: params.id!, edit: edit! })
 
-    // const params = useParams();
 
-    // useEffect(() => {
-    //     if(!params.id) onClose();
-    // }, [params.id, onClose]);
+    const closeModal = useCallback(() => {
+        onClose();
+        navigate('/');
+    }, [])
+
+    useEffect(() => { 
+        if(isOpen === false) closeModal();
+      }, [isOpen, closeModal]);
+
+    useEffect(() => {
+        if(edit && params.id) onOpen();
+      }, [params.id, edit, onOpen]);
+
+    useEffect(() => {
+        if(!params.id) closeModal();
+    }, [params.id, closeModal]);
+
+
+    useEffect(() => {
+        if(data !== undefined){
+          setInitialValues({
+                name: data.name,
+                last_name: data.last_name, 
+                mother_last_name: data.mother_last_name, 
+                dni: data.dni,
+                image: data.image
+              })
+        } else {
+          setInitialValues(INITIALVALUES)
+        }
+      }, [data]);
 
     return (
         <>
             <Button variant={'outline'} color='white' onClick={onOpen} width={200} alignSelf={"center"}>
-            Registrar nuevo producto
+                Registrar alumno
             </Button>
             <Modal
-            initialFocusRef={initialRef}
-            finalFocusRef={finalRef}
-            isOpen={isOpen}
-            onClose={onClose}
+                initialFocusRef={initialRef}
+                finalFocusRef={finalRef}
+                isOpen={isOpen}
+                onClose={onClose}
             >
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader textAlign={'center'}>
-                    {/* { params.id ? 'Editar ' : 'Registrar nuevo ' } */}
-                    Registrar Alumno
+                    { params.id ? 'Editar ' : 'Registrar ' }
+                    alumno
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
                     <Formik
-                        initialValues={ INITIALVALUES }
+                        initialValues={ initialValues }
                         onSubmit={ (values) => {
                             values.dni = values.dni.toString();
-                            // console.log("values", values)
-                            addStudent.mutate(values);
-                            if(addStudent.isError === false) onClose()
 
+                            if(!params.id && !edit){
+                                addStudent.mutate(values);
+                            }
+
+                            if(params.id !== undefined && edit === true){
+                                
+                                const VALUES: Student = {
+                                    dni: values.dni,
+                                    image: values.image,
+                                    last_name: values.last_name,
+                                    mother_last_name: values.mother_last_name,
+                                    name: values.name
+                                }
+                                editStudent.mutate({id_student: params.id, values: VALUES})
+                            }
+                            // if(addStudent.isError === false) onClose()
+
+                            closeModal();
                         }}
                         validationSchema={validationSchema}
                         enableReinitialize={true}
@@ -125,10 +178,10 @@ export const FormStudent = () => {
 
                                 <HStack justifyContent={'space-between'}>
                                 <Button bg='brand.clonika.blue.800' mr={3} type='submit'>
-                                    {/* { params.id ? 'Editar' : 'Registrar' } */}
-                                    Registrar
+                                    { params.id ? 'Editar' : 'Registrar' }
                                 </Button>
-                                <Button onClick={onClose} colorScheme='red'>
+
+                                <Button onClick={closeModal} colorScheme='red'>
                                     Cancelar
                                 </Button>
                                 </HStack>

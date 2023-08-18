@@ -1,9 +1,14 @@
+import { FC } from 'react';
 import { Box, HStack, SimpleGrid } from "@chakra-ui/react";
 import { useGetAllStudents } from "../hooks";
 import { CardStudent, Filter, FormStudent } from "../components";
 import { Item } from "../interfaces";
 
-export const AllStudents = () => {
+interface Props {
+  edit?: boolean | undefined;
+}
+
+export const AllStudents: FC<Props> = ({ edit }) => {
   const { data } = useGetAllStudents();
   return (
     <>
@@ -21,13 +26,9 @@ export const AllStudents = () => {
         >
           <Filter/>
 
-          <FormStudent/>
+          <FormStudent  edit={ edit }/>
           
         </HStack>
-       
-       
-       
-       
        
         <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
           {
@@ -35,6 +36,7 @@ export const AllStudents = () => {
             data.map(({image, last_name, mother_last_name, name, id_student }: Item) => (
               <CardStudent 
                 key={id_student}
+                id_student={ id_student }
                 image={ image }
                 last_name={last_name}
                 mother_last_name={mother_last_name}

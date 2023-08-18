@@ -19,6 +19,9 @@ export const App = () => {
               <Route path="/students/export" element={<ExportStudents/>} />
               <Route path="/pays" element={<Payments/>} />
               <Route path="/schedules" element={<Schedules/>} />
+
+              <Route path="/students/:id" element={<AllStudents edit={true}/>} />
+
             </Route>
 
             <Route path="/*" element={<Navigate to="/"/>}/>
