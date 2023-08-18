@@ -21,18 +21,9 @@ export const NAME_PRODUCTS = {
 }
 
 export const MESSAGES_NOTIFICATIONS = {
-    registred           : 'Producto registrado exitosamente',
-    edited              : 'Producto editado exitosamente',
-    deleted             : 'Producto eliminado exitosamente',
-    saleRegistred       : 'Venta registrada exitosamente',
-    saleRegistredError  : {
-        title        : 'Error al tratar de registrar la venta',
-        description  : 'La cantidad supera al stock del producto'
-    },
-    saleAddToCart: {
-        title: 'El producto no se puede añadir',
-        description: 'El motivo es porque ya se encuentra agregado, lo que puedes hacer es editar el producto en la tabla de abajo'
-    }
+    registred           : 'Alumno registrado exitosamente',
+    edited              : 'Alumno editado exitosamente',
+    deleted             : 'Alumno eliminado exitosamente',
 }
 
 

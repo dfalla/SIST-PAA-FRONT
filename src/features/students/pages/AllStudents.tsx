@@ -5,10 +5,10 @@ import { Item } from "../interfaces";
 
 export const AllStudents = () => {
   const { data } = useGetAllStudents();
-
+  console.log("data", data);
   return (
     <>
-      <Box bg={'brand.clonika.blue.800'} padding={4}>
+      <Box bg={'brand.clonika.blue.800'} padding={4} minHeight={'90vh'}>
         <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
           {
             data !== undefined &&

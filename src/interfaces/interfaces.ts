@@ -14,4 +14,17 @@ export interface Profile {
 export interface InitialValues{
     username: string;
     password: string;
-  }
+}
+
+export interface Student{
+    name: string;
+    last_name: string;
+    mother_last_name: string;
+    dni: string;
+    imagen: File | null;
+}
+
+export interface UpdateStudenttArgs{
+    id_student: string;
+    values: Student;
+}
