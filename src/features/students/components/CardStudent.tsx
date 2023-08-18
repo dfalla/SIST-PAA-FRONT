@@ -17,7 +17,6 @@ export interface CardArgs{
 }
 
 export const CardStudent = ({image, last_name, mother_last_name, name}: CardArgs) => {
-  console.log("me ejecuto")
   return (
     <Box
       role={'group'}

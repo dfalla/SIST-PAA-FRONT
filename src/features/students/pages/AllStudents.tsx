@@ -1,11 +1,10 @@
-import { Box, HStack, SimpleGrid, Text} from "@chakra-ui/react";
+import { Box, HStack, SimpleGrid } from "@chakra-ui/react";
 import { useGetAllStudents } from "../hooks";
 import { CardStudent, Filter, FormStudent } from "../components";
 import { Item } from "../interfaces";
 
 export const AllStudents = () => {
   const { data } = useGetAllStudents();
-  console.log("data", data);
   return (
     <>
       <Box bg={'brand.clonika.blue.800'} padding={4} minHeight={'90vh'}>

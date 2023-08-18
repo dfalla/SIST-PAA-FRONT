@@ -21,7 +21,7 @@ export interface Student{
     last_name: string;
     mother_last_name: string;
     dni: string;
-    imagen: File | null;
+    image: File | null;
 }
 
 export interface UpdateStudenttArgs{

@@ -8,7 +8,7 @@ export const useAddStudent = () => {
     
     const toast = useToast();
   
-    const addProduct = useMutation({
+    const addStudent = useMutation({
       mutationFn: createStudent,
       onSuccess: async() =>{
         toast({
@@ -19,14 +19,16 @@ export const useAddStudent = () => {
           position: 'top'
         })
         await queryClient.invalidateQueries({
-            queryKey: [`${FEATURES.students}`],  
+          queryKey: [`${FEATURES.students}`],  
           refetchType: 'active',
         })
       }
     })
+
+    console.log("error", addStudent.isError);
   
     return {
-      addProduct,
+      addStudent,
     }
   }
   

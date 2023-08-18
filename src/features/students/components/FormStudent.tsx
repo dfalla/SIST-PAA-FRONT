@@ -18,10 +18,12 @@ import {
 
 import { Formik, Form } from 'formik';
 
-import { useNavigate, useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom";
 
 
 import { InputField, SafeAny } from "@/common";
+import { INITIALVALUES, validationSchema } from '../domain';
+import { useAddStudent } from '../hooks';
 
 
 export const FormStudent = () => {
@@ -31,7 +33,14 @@ export const FormStudent = () => {
     const initialRef = useRef(null)
     const finalRef = useRef(null)
 
-    const params = useParams();
+    const { addStudent } = useAddStudent();
+
+
+    // const params = useParams();
+
+    // useEffect(() => {
+    //     if(!params.id) onClose();
+    // }, [params.id, onClose]);
 
     return (
         <>
@@ -47,15 +56,18 @@ export const FormStudent = () => {
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader textAlign={'center'}>
-                    { params.id ? 'Editar ' : 'Registrar nuevo ' }
-                    producto
+                    {/* { params.id ? 'Editar ' : 'Registrar nuevo ' } */}
+                    Registrar Alumno
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
                     <Formik
-                        initialValues={ initialValues }
+                        initialValues={ INITIALVALUES }
                         onSubmit={ (values) => {
-                            console.log("values", values)
+                            values.dni = values.dni.toString();
+                            // console.log("values", values)
+                            addStudent.mutate(values);
+                            if(addStudent.isError === false) onClose()
 
                         }}
                         validationSchema={validationSchema}
@@ -65,31 +77,38 @@ export const FormStudent = () => {
                             ({ setFieldValue })=>(
                             <Form>
                                 <VStack alignItems={'flex-start'} marginBottom={4}>
+
+                                <HStack
+                                  justifyContent={'space-between'}
+                                  flexDirection={{base: 'column', md:'row'}}
+                                  width={{base: '100%'}}
+                                >
+                                    <InputField
+                                        name='name'
+                                        label='Nombre'
+                                        type='text'
+                                        variant={'filled'}
+                                    /> 
+
+                                    <InputField
+                                        name='dni'
+                                        label='DNI'
+                                        type='number'
+                                        variant={'filled'}
+                                    />
+                                </HStack>
+
                                 <InputField
-                                    name='marca'
-                                    label='Marca'
+                                    name='last_name'
+                                    label='Apellido Paterno'
                                     type='text'
                                     variant={'filled'}
                                 /> 
 
                                 <InputField
-                                    name='descripcion'
-                                    label='Descripcion del producto'
+                                    name='mother_last_name'
+                                    label='Apellido Materno'
                                     type='text'
-                                    variant={'filled'}
-                                /> 
-
-                                <InputField
-                                    name='precio'
-                                    label='Precio del producto'
-                                    type='number'
-                                    variant={'filled'}
-                                /> 
-
-                                <InputField
-                                    name='stock'
-                                    label='¿Cuántos productos hay en Stock?'
-                                    type='number'
                                     variant={'filled'}
                                 /> 
 
@@ -97,8 +116,8 @@ export const FormStudent = () => {
                                     Selecciona una imagen
                                 </Text>
                                 <Input
-                                    name='imagen'
-                                    onChange={(e: SafeAny)=>setFieldValue('imagen', e.target.files[0])}
+                                    name='image'
+                                    onChange={(e: SafeAny)=>setFieldValue('image', e.target.files[0])}
                                     type='file'
                                 /> 
 
@@ -106,9 +125,10 @@ export const FormStudent = () => {
 
                                 <HStack justifyContent={'space-between'}>
                                 <Button bg='brand.clonika.blue.800' mr={3} type='submit'>
-                                    { params.id ? 'Editar' : 'Registrar' }
+                                    {/* { params.id ? 'Editar' : 'Registrar' } */}
+                                    Registrar
                                 </Button>
-                                <Button onClick={closeModal} colorScheme='red'>
+                                <Button onClick={onClose} colorScheme='red'>
                                     Cancelar
                                 </Button>
                                 </HStack>

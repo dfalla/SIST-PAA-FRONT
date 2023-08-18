@@ -27,7 +27,7 @@ export const geStudentById = async(id: string) =>{
 }
 
 export const createStudent = async( values: Student) => {
-    
+    console.log("values desde create student", values)
     const formData = new FormData();
 
     for(const key in values){
