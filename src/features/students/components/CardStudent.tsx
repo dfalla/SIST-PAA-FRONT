@@ -1,24 +1,23 @@
 import {
-    Box,
-    useColorModeValue,
-    Heading,
-    Text,
-    Stack,
-    Image,
-    Button,
+  Box,
+  useColorModeValue,
+  Heading,
+  Text,
+  Stack,
+  Image,
+  Button,
 } from '@chakra-ui/react';
 
 export interface CardArgs{
-    dni: string;
-    id_student?: string;
-    name: string;
-    last_name: string;
-    mother_last_name: string;
-    image: string;
-  }
+  id_student?: string;
+  name: string;
+  last_name: string;
+  mother_last_name: string;
+  image: string;
+}
 
-export const CardStudent = ({dni, image, last_name, mother_last_name, name}: CardArgs) => {
-    console.log("me ejecuto")
+export const CardStudent = ({image, last_name, mother_last_name, name}: CardArgs) => {
+  console.log("me ejecuto")
   return (
     <Box
       role={'group'}
@@ -61,19 +60,11 @@ export const CardStudent = ({dni, image, last_name, mother_last_name, name}: Car
           src={image}
         />
       </Box>
-      <Stack pt={10} align={'center'}>
-        <Text color={'brand.clonika.blue.800'} fontSize={'sm'} textTransform={'uppercase'}>
-          { name }
-        </Text>
-        <Heading fontSize={'md'} fontFamily={'body'} fontWeight={500}>
-          {`${last_name} ${mother_last_name}`}
+      <Stack spacing={0} align={'center'} mb={5} mt={5}>
+        <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
+          {name}
         </Heading>
-        <Stack direction={'row'} align={'center'}>
-          <Text fontWeight={800} >
-            {dni}
-          </Text>
-         
-        </Stack>
+        <Text color={'gray.500'}>{`${last_name} ${mother_last_name}`}</Text>
       </Stack>
       <Stack mt={8} direction={'row'} spacing={4}>
         <Button

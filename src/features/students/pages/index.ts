@@ -1,2 +1,3 @@
+export * from './AllStudents';
 export * from './ExportStudents';
-export * from './Students';
+export * from './index';

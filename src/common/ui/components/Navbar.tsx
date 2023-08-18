@@ -162,10 +162,13 @@ interface SubContent {
                             Alumnos
                           </MenuButton>
 
-                          <MenuList>
+                          <MenuList
+                            zIndex={9999}
+                          >
                             {
                               link.subContent!.map((item)=>(
                                 <MenuItem 
+                                  
                                   key={item.title}
                                   as={NavLink} 
                                   to={item.path}
