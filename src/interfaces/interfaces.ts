@@ -18,10 +18,18 @@ export interface InitialValues{
 
 export interface Student{
     name: string;
+    age: string;
     last_name: string;
     mother_last_name: string;
-    dni: string;
+    address: string | null ;
+    type_document: string;
+    document_number: string;
+    phone_number: string;
+    category: string;
+    level: string; 
     image: File | null;
+    amount_payable: number;
+    date_admission: string;
 }
 
 export interface UpdateStudenttArgs{

@@ -7,7 +7,7 @@ import { SafeAny } from "..";
 interface Props { 
     label: string;
     name: string;
-    type?: 'text' | 'email' | 'password' | 'number';
+    type?: 'text' | 'email' | 'password' | 'number' | 'date';
     placeholder?: string;
     [x: string]: SafeAny;
 }

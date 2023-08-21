@@ -14,6 +14,11 @@ import {
     HStack,
     Input,
     Text,
+    Box,
+    Progress,
+    ButtonGroup,
+    Flex,
+    Heading,
 } from '@chakra-ui/react';
 
 import { Formik, Form } from 'formik';
@@ -22,7 +27,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 
 import { FC } from 'react';
-import { CustomModal, InputField, SafeAny } from "@/common";
+import { InputField, SafeAny, SelectField } from "@/common";
 import { INITIALVALUES, validationSchema } from '../domain';
 import { useAddStudent, useEditStudent } from '../hooks';
 import { Student } from '@/interfaces';
@@ -31,11 +36,164 @@ interface Props {
     edit: boolean | undefined;
 }
 
+interface OptionsProps {
+    label: string;
+    value: string;
+}
+
+const PersonalInformationForm = () => {
+    return(
+        <VStack gap={3}>
+            <Heading width={'100%'} textAlign={'center'} fontWeight={'normal'} mb="2%">
+                Información Personal
+            </Heading>
+            <HStack>
+                <InputField
+                    name='name'
+                    label='Nombre'
+                    type='text'
+                    variant={'filled'}
+                />
+
+                <InputField
+                    name='phone_number'
+                    label='Teléfono'
+                    type='text'
+                    variant={'filled'}
+                />
+            </HStack>
+            <HStack>
+                <InputField
+                    name='last_name'
+                    label='Apellido Materno'
+                    type='text'
+                    variant={'filled'}
+                />
+                <InputField
+                    name='mother_last_name'
+                    label='Apellido Materno'
+                    type='text'
+                    variant={'filled'}
+                />
+            </HStack>
+            <HStack>
+                <Text fontWeight={'bold'}>
+                    Selecciona una imagen
+                </Text>
+                <Input
+                    name='image'
+                    onChange={(e: SafeAny)=>setFieldValue('image', e.target.files[0])}
+                    type='file'
+                />
+            </HStack>
+        </VStack>
+    )
+}
+
+const DocumentationForm = () => {
+
+    const options: OptionsProps[] = [
+        {
+            label: 'DNI',
+            value: 'dni'
+        },
+        {
+            label: 'Carnet de Extranjería',
+            value: 'ce'
+        },
+    ]
+
+    return(
+        <VStack gap={3}>
+            <Heading width={'100%'} textAlign={'center'} fontWeight={'normal'} mb="2%">
+                Documentación
+            </Heading>
+            <HStack>
+                <SelectField name='type_document' label="Selecciona una opción" options={options}/>
+                <InputField
+                    name='document_number'
+                    label='Número de documento'
+                    type='text'
+                    variant={'filled'}
+                />
+            </HStack>
+            <HStack>
+                <InputField
+                    name='age'
+                    label='Edad'
+                    type='number'
+                    variant={'filled'}
+                />
+                <InputField
+                    name='date_admission'
+                    label='Fecha de ingreso'
+                    type='date'
+                    // variant={'filled'}
+                />
+            </HStack>
+        </VStack>
+    )
+}
+
+const ArtisticReferenceForm = () => {
+    const optionsCategory: OptionsProps[] = [
+        {
+            label: 'Niños',
+            value: 'nino'
+        },
+        {
+            label: 'Jóvenes',
+            value: 'joven'
+        },
+        {
+            label: 'Adultos',
+            value: 'adulto'
+        },
+    ]
+
+    const optionsLevel: OptionsProps[] = [
+        {
+            label: 'Básico',
+            value: 'basico'
+        },
+        {
+            label: 'Intermedio',
+            value: 'intermedio'
+        },
+        {
+            label: 'Avanzado',
+            value: 'avanzado'
+        },
+    ]
+    return(
+        <>
+            <Heading width={'100%'} textAlign={'center'} fontWeight={'normal'} mb="2%">
+                Referencia Artística
+            </Heading>
+            <HStack>
+                <SelectField name='category' label="Selecciona una opción" options={optionsCategory}/>
+                <SelectField name='level' label="Selecciona una opción" options={optionsLevel}/>
+                <InputField
+                    name='amount_payable'
+                    label='Monto a pagar'
+                    type='number'
+                    variant={'filled'}
+                />
+            </HStack>
+        </>
+    );
+}
+
 export const FormStudent: FC<Props> = ({ edit }) => {
 
-  const [initialValues, setInitialValues] = useState<Student>(INITIALVALUES);
+    const [initialValues, setInitialValues] = useState<Student>(INITIALVALUES);
 
     const { isOpen, onOpen, onClose,  } = useDisclosure()
+
+
+    const [step, setStep] = useState(1);
+
+    const [progress, setProgress] = useState(33.33);
 
     const initialRef = useRef(null)
     const finalRef = useRef(null)
@@ -129,7 +287,7 @@ export const FormStudent: FC<Props> = ({ edit }) => {
                         {
                             ({ setFieldValue })=>(
                             <Form>
-                                <VStack alignItems={'flex-start'} marginBottom={4}>
+                                {/* <VStack alignItems={'flex-start'} marginBottom={4}>
 
                                 <HStack
                                   justifyContent={'space-between'}
@@ -174,17 +332,63 @@ export const FormStudent: FC<Props> = ({ edit }) => {
                                     type='file'
                                 /> 
 
-                                </VStack>
+                                </VStack> */}
+                                <Box
+                                    borderWidth='1px'
+                                    rounded='lg'
+                                    shadow="1px 1px 1px rgba(0,0,0,0.3)"
+                                    p={6}
+                                    m="10px auto"
+                                >
+                                    <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
+                                    {step === 1 ? <PersonalInformationForm /> : step === 2 ? <DocumentationForm /> : <ArtisticReferenceForm />}
+                                        <ButtonGroup mt="5%" w="100%">
+                                        <Flex w="100%" justifyContent="space-between">
+                                            <Flex>
+                                            <Button
+                                                onClick={() => {
+                                                setStep(step - 1)
+                                                setProgress(progress - 33.33)
+                                                }}
+                                                isDisabled={step === 1}
+                                                colorScheme="teal"
+                                                variant="solid"
+                                                w="7rem"
+                                                mr="5%">
+                                                Back
+                                            </Button>
+                                            <Button
+                                                w="7rem"
+                                                isDisabled={step === 3}
+                                                onClick={() => {
+                                                setStep(step + 1)
+                                                if (step === 3) {
+                                                    setProgress(100)
+                                                } else {
+                                                    setProgress(progress + 33.33)
+                                                }
+                                                }}
+                                                colorScheme="teal"
+                                                variant="outline">
+                                                Next
+                                            </Button>
+                                            </Flex>
+                                            {step === 3 ? (
+                                            <HStack justifyContent={'space-between'} gap={3}>
+                                                <Button bg='brand.clonika.blue.800' mr={3} type='submit'>
+                                                    { params.id ? 'Editar' : 'Registrar' }
+                                                </Button>
+            
+                                                {/* <Button onClick={closeModal} colorScheme='red'>
+                                                    Cancelar
+                                                </Button> */}
+                                            </HStack>
+                                            ) : null}
+                                        </Flex>
+                                        </ButtonGroup>
+                                </Box>
 
-                                <HStack justifyContent={'space-between'}>
-                                <Button bg='brand.clonika.blue.800' mr={3} type='submit'>
-                                    { params.id ? 'Editar' : 'Registrar' }
-                                </Button>
-
-                                <Button onClick={closeModal} colorScheme='red'>
-                                    Cancelar
-                                </Button>
-                                </HStack>
+                                
                             </Form>
                             )
                         }
@@ -195,3 +399,12 @@ export const FormStudent: FC<Props> = ({ edit }) => {
         </>
     )
 }
+
+
+
+
+
+
+
+
+
