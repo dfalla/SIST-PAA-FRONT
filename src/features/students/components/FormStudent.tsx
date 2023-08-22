@@ -28,7 +28,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { FC } from 'react';
 import { InputField, SafeAny, SelectField } from "@/common";
-import { INITIALVALUES, validationSchema } from '../domain';
+import { PERSONALINFORMATIONINITIALVALUES, PersonalInformationvalidationSchema } from '../domain';
 import { useAddStudent, useEditStudent } from '../hooks';
 import { Student } from '@/interfaces';
 
@@ -43,50 +43,63 @@ interface OptionsProps {
 
 const PersonalInformationForm = () => {
     return(
-        <VStack gap={3}>
-            <Heading width={'100%'} textAlign={'center'} fontWeight={'normal'} mb="2%">
-                Información Personal
-            </Heading>
-            <HStack>
-                <InputField
-                    name='name'
-                    label='Nombre'
-                    type='text'
-                    variant={'filled'}
-                />
+        <Formik
+            initialValues={ PERSONALINFORMATIONINITIALVALUES }
+            validationSchema={ PersonalInformationvalidationSchema }
+            onSubmit={(values)=> {
+                console.log("values", values)
+            }}
+            enableReinitialize={true}
+        >
+                {({ setFieldValue })=>(
+                    <Form>
+                        <VStack gap={3}>
+                        <Heading width={'100%'} textAlign={'center'} fontWeight={'normal'} mb="2%">
+                            Información Personal
+                        </Heading>
+                        <HStack>
+                            <InputField
+                                name='name'
+                                label='Nombre'
+                                type='text'
+                                variant={'filled'}
+                            />
 
-                <InputField
-                    name='phone_number'
-                    label='Teléfono'
-                    type='text'
-                    variant={'filled'}
-                />
-            </HStack>
-            <HStack>
-                <InputField
-                    name='last_name'
-                    label='Apellido Materno'
-                    type='text'
-                    variant={'filled'}
-                />
-                <InputField
-                    name='mother_last_name'
-                    label='Apellido Materno'
-                    type='text'
-                    variant={'filled'}
-                />
-            </HStack>
-            <HStack>
-                <Text fontWeight={'bold'}>
-                    Selecciona una imagen
-                </Text>
-                <Input
-                    name='image'
-                    onChange={(e: SafeAny)=>setFieldValue('image', e.target.files[0])}
-                    type='file'
-                />
-            </HStack>
-        </VStack>
+                            <InputField
+                                name='phone_number'
+                                label='Teléfono'
+                                type='text'
+                                variant={'filled'}
+                            />
+                        </HStack>
+                        <HStack>
+                            <InputField
+                                name='last_name'
+                                label='Apellido Materno'
+                                type='text'
+                                variant={'filled'}
+                            />
+                            <InputField
+                                name='mother_last_name'
+                                label='Apellido Materno'
+                                type='text'
+                                variant={'filled'}
+                            />
+                        </HStack>
+                        <HStack>
+                            <Text fontWeight={'bold'}>
+                                Selecciona una imagen
+                            </Text>
+                            <Input
+                                name='image'
+                                onChange={(e: SafeAny)=>setFieldValue('image', e.target.files[0])}
+                                type='file'
+                            />
+                        </HStack>
+                        </VStack>
+                    </Form>
+                )}
+        </Formik>
     )
 }
 
