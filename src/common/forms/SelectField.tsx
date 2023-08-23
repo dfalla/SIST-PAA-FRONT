@@ -22,7 +22,6 @@ export const SelectField = ({ label, options, ...props }: Props) => {
         </Text>
       </FormLabel>
       <Select id={props.name} {...field} {...props} placeholder={`Selecciona una opción`}>
-        <option value="">Seleccione</option>
         {options.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}
