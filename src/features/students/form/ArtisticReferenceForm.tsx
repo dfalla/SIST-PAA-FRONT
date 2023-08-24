@@ -1,8 +1,9 @@
 import {
     VStack,
     Heading,
+    HStack,
 } from '@chakra-ui/react';
-import { InputField, SelectField } from '@/common';
+import { InputField, SelectField, SwitchField } from '@/common';
 import { OptionsProps } from "../interfaces"
 
 const optionsCategory: OptionsProps[] = [
@@ -37,7 +38,7 @@ const optionsLevel: OptionsProps[] = [
 
 
 
-export const ArtisticReference =()=> {
+export const ArtisticReference = ({isChecked}: {isChecked:boolean})=> {
     return(
         <VStack gap={3}>
         <Heading width={'100%'} textAlign={'center'} fontWeight={'normal'} mb="2%">
@@ -45,12 +46,19 @@ export const ArtisticReference =()=> {
         </Heading>
             <SelectField name='category' label="Selecciona una opción" options={optionsCategory}/>
             <SelectField name='level' label="Selecciona una opción" options={optionsLevel}/>
-            <InputField
-                name='amount_payable'
-                label='Monto a pagar'
-                type='number'
-                variant={'filled'}
-            />
+            <HStack justifyContent={"space-between"} alignItems={'flex-start'} alignSelf={'flex-start'}>
+                <InputField
+                    name='amount_payable'
+                    label='Monto a pagar'
+                    type='number'
+                    variant={'filled'}
+                />
+                <SwitchField
+                    name='active'
+                    label='Activo'
+                    defaultChecked={ isChecked }
+                />
+            </HStack>
         </VStack>
     )
 }

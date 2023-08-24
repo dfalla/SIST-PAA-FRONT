@@ -20,7 +20,7 @@ import { validationSchema, INITIALVALUES } from '../domain';
 import { useAddStudent, useEditStudent } from '../hooks';
 import { STUDENT } from '../interfaces';
 import { DocumentationForm, PersonalInformationForm, ArtisticReference } from '../form';
-import { customDateRevert, transformData } from '@/helpers';
+import { customDateRevert, transformData, trueOrFalse } from '@/helpers';
 
 interface Props {
     edit: boolean | undefined;
@@ -42,14 +42,13 @@ export const FormStudent: FC<Props> = ({ edit }) => {
     const initialRef = useRef(null)
     const finalRef = useRef(null)
 
-    const params = useParams();
+    const {id_student} = useParams();
     const navigate = useNavigate();
 
     const { addStudent } = useAddStudent();
 
-    console.log("params.id_student", params.id_student)
 
-    const { data, editStudent } = useEditStudent({ parameter: params.id_student!})
+    const { data, editStudent } = useEditStudent({ parameter: id_student!})
 
     const closeModal = useCallback(() => {
         onClose();
@@ -57,7 +56,10 @@ export const FormStudent: FC<Props> = ({ edit }) => {
     }, [onClose, navigate])
 
     useEffect(() => {
-        if(isOpen === false) setStep(1);
+        if(isOpen === false) {
+            setStep(1)
+            setProgress(33.3)
+        }
     }, [isOpen]);
 
     useEffect(() => { 
@@ -65,20 +67,21 @@ export const FormStudent: FC<Props> = ({ edit }) => {
     }, [isOpen]);
 
     useEffect(() => {
-        if(edit && params.id_student) onOpen();
+        if(edit && id_student){
+            setStep(1)
+            setProgress(33.3)
+            onOpen()
+        }
 
-    }, [params.id_student, edit, onOpen]);
+    }, [id_student, edit, onOpen]);
 
     useEffect(() => {
-        if(!params.id_student) closeModal();
-    }, [params.id_student, closeModal]);
+        if(!id_student) closeModal();
+    }, [id_student, closeModal]);
 
 
     useEffect(() => {
         if(data !== undefined){
-            if(data.address === null){
-                data.address = ''
-            }
           setInitialValues({
                 name: data.name,
                 address: data.address,
@@ -91,7 +94,8 @@ export const FormStudent: FC<Props> = ({ edit }) => {
                 category: data.category,
                 level:data.level,
                 amount_payable: data.amount_payable,
-                date_admission: data.date_admission,
+                active: trueOrFalse(data.active)!,
+                date_admission: customDateRevert(data.date_admission),
                 image: data.image
               })
         } else {
@@ -114,7 +118,7 @@ export const FormStudent: FC<Props> = ({ edit }) => {
                                     
                 <ModalContent maxWidth={500}>
                     <ModalHeader textAlign={'center'}>
-                        { params.id ? 'Editar ' : 'Registrar ' }
+                        { id_student ? 'Editar ' : 'Registrar ' }
                         alumno
                     </ModalHeader>
                     <ModalCloseButton />
@@ -123,10 +127,15 @@ export const FormStudent: FC<Props> = ({ edit }) => {
                             initialValues={ initialValues }
                             validationSchema={validationSchema}
                             onSubmit={(values, { resetForm })=>{
+                                console.log("values", values)
                                 const { valuesToSend } = transformData(values)
                                 // console.log("valuesToSend", valuesToSend)
-                                if(!params.id && !edit){
+                                if(!id_student && !edit){
                                     addStudent.mutate(valuesToSend)
+                                }
+
+                                if(id_student !== undefined && edit === true){
+                                    editStudent.mutate({id_student, values: valuesToSend})
                                 }
                                 resetForm();
                                 closeModal()
@@ -147,7 +156,7 @@ export const FormStudent: FC<Props> = ({ edit }) => {
                                             <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
                                                 {step === 1 && (<PersonalInformationForm setFieldValue={setFieldValue}/>)}
                                                 { step === 2 && (<DocumentationForm values={values}/>)} 
-                                                {step === 3 && (<ArtisticReference/>)}
+                                                {step === 3 && (<ArtisticReference isChecked={values.active}/>)}
                                                 <ButtonGroup mt="5%" w="100%">
                                                     <Flex w="100%" justifyContent="space-between">
                                                         <Flex>
@@ -171,6 +180,7 @@ export const FormStudent: FC<Props> = ({ edit }) => {
                                                                         name, 
                                                                         last_name,
                                                                         mother_last_name,
+                                                                        address,
                                                                         phone_number,
                                                                         type_document, 
                                                                         document_number,
@@ -179,7 +189,7 @@ export const FormStudent: FC<Props> = ({ edit }) => {
                                                                     } = values;
 
                                                                     if(step === 1){
-                                                                        if(name && last_name && mother_last_name && phone_number){
+                                                                        if(name && last_name && mother_last_name && phone_number && address){
                                                                             setStep(step + 1)
                                                                             setProgress(progress + 33.33)
 
@@ -210,7 +220,7 @@ export const FormStudent: FC<Props> = ({ edit }) => {
                                                                     mr={3}
                                                                     type="submit"
                                                                 >
-                                                                    { params.id ? 'Editar' : 'Registrar' }
+                                                                    { id_student ? 'Editar' : 'Registrar' }
                                                                 </Button>
                                                             </HStack>
                                                         )}

@@ -16,3 +16,14 @@ export const transformData = (values:STUDENT) => {
     valuesToSend: values
   }
 }
+
+
+export const trueOrFalse = (value: string) => {
+  if(value === 'false'){
+    return false;
+  }
+
+  if(value === 'true'){
+    return true;
+  }
+}

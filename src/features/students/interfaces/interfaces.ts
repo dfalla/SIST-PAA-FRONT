@@ -19,6 +19,7 @@ export interface STUDENT {
     age: string;
     date_admission: string;
     category: string;
+    active: boolean;
     level: string; 
     amount_payable: number;
 

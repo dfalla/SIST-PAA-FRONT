@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Box, HStack, SimpleGrid } from "@chakra-ui/react";
 import { useGetAllStudents } from "../hooks";
-import { CardStudent, Filter, FormStudent } from "../components";
+import { CardStudent, FormStudent } from "../components";
 import { Item } from "../interfaces";
 
 interface Props {

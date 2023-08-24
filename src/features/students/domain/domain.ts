@@ -14,6 +14,7 @@ export const INITIALVALUES: STUDENT = {
   age: '',
   date_admission: '',
   category: '',
+  active: false,
   level: '',
   amount_payable: 0,
 }
@@ -42,6 +43,7 @@ export const validationSchema = Yup.object({
   date_admission: Yup.string().required('Este campo es requerido'),
   category: Yup.string().required('Debes seleccionar un tipo de documento de identidad'),
   level: Yup.string().required('Debes seleccionar un tipo de documento de identidad'),
+  address: Yup.string().required('Este campo es requerido'),
   amount_payable: Yup.number().required('Este campo es requerido').max(80, 'El monto no debe de pasarse los S/.80'),
 })
 
