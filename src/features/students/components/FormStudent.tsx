@@ -1,4 +1,4 @@
-import  { useCallback, useEffect, useRef, useState}  from 'react';
+import  { useCallback, useEffect, useRef, useState, FC}  from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -14,14 +14,13 @@ import {
     ButtonGroup,
     Flex,
 } from '@chakra-ui/react';
-import { Formik, Form} from 'formik';
+import { Formik, Form } from 'formik';
 import { useNavigate, useParams } from "react-router-dom";
-import { FC } from 'react';
 import { validationSchema, INITIALVALUES } from '../domain';
 import { useAddStudent, useEditStudent } from '../hooks';
 import { STUDENT } from '../interfaces';
 import { DocumentationForm, PersonalInformationForm, ArtisticReference } from '../form';
-import { transformData } from '@/helpers';
+import { customDateRevert, transformData } from '@/helpers';
 
 interface Props {
     edit: boolean | undefined;
@@ -31,7 +30,9 @@ export const FormStudent: FC<Props> = ({ edit }) => {
 
     const [initialValues, setInitialValues] = useState<STUDENT>(INITIALVALUES);
 
-    const { isOpen, onOpen, onClose,  } = useDisclosure()
+
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
 
     const [step, setStep] = useState(1);
@@ -46,40 +47,57 @@ export const FormStudent: FC<Props> = ({ edit }) => {
 
     const { addStudent } = useAddStudent();
 
-    const { data, editStudent } = useEditStudent({ parameter: params.id!, edit: edit! })
+    console.log("params.id_student", params.id_student)
 
+    const { data, editStudent } = useEditStudent({ parameter: params.id_student!})
 
     const closeModal = useCallback(() => {
         onClose();
         navigate('/');
-    }, [])
+    }, [onClose, navigate])
+
+    useEffect(() => {
+        if(isOpen === false) setStep(1);
+    }, [isOpen]);
 
     useEffect(() => { 
         if(isOpen === false) closeModal();
-      }, [isOpen, closeModal]);
+    }, [isOpen]);
 
     useEffect(() => {
-        if(edit && params.id) onOpen();
-      }, [params.id, edit, onOpen]);
+        if(edit && params.id_student) onOpen();
+
+    }, [params.id_student, edit, onOpen]);
 
     useEffect(() => {
-        if(!params.id) closeModal();
-    }, [params.id, closeModal]);
+        if(!params.id_student) closeModal();
+    }, [params.id_student, closeModal]);
 
 
     useEffect(() => {
         if(data !== undefined){
+            if(data.address === null){
+                data.address = ''
+            }
           setInitialValues({
                 name: data.name,
+                address: data.address,
+                age: data.age,
                 last_name: data.last_name, 
                 mother_last_name: data.mother_last_name, 
-                dni: data.dni,
+                phone_number: data.phone_number,
+                type_document: data.type_document, 
+                document_number: data.document_number,
+                category: data.category,
+                level:data.level,
+                amount_payable: data.amount_payable,
+                date_admission: data.date_admission,
                 image: data.image
               })
         } else {
           setInitialValues(INITIALVALUES)
         }
-      }, [data]);
+    }, [data]);
 
     return (
         <>

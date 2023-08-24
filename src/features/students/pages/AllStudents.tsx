@@ -10,6 +10,7 @@ interface Props {
 
 export const AllStudents: FC<Props> = ({ edit }) => {
   const { data } = useGetAllStudents();
+
   return (
     <>
       <Box bg={'brand.clonika.blue.800'} padding={4} minHeight={'90vh'}>
@@ -24,7 +25,7 @@ export const AllStudents: FC<Props> = ({ edit }) => {
           alignItems={["center", "center", "center", "center"]}
           
         >
-          <Filter/>
+          {/* <Filter/> */}
 
           <FormStudent  edit={ edit }/>
           

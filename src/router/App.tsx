@@ -20,7 +20,7 @@ export const App = () => {
               <Route path="/pays" element={<Payments/>} />
               <Route path="/schedules" element={<Schedules/>} />
 
-              <Route path="/students/:id" element={<AllStudents edit={true}/>} />
+              <Route path="/students/:id_student" element={<AllStudents edit={true}/>} />
 
             </Route>
 

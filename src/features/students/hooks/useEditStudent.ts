@@ -4,23 +4,23 @@ import { geStudentById, updateStudent } from "@/api";
 import { FEATURES, MESSAGES_NOTIFICATIONS } from "@/constants";
 import { SafeAny } from "@/common";
 
-export const useEditStudent = ({parameter, edit}: {parameter: string, edit?: boolean}) => {
+export const useEditStudent = ({parameter}: {parameter: string, edit?: boolean}) => {
 
     const queryClient = useQueryClient(); 
     const toast = useToast();
 
-    let getProductById:  QueryFunction<SafeAny, (string | undefined)[]> | undefined;
+    // let getProductById:  QueryFunction<SafeAny, (string | undefined)[]> | undefined;
 
 
-    if(parameter && edit === true){
-      getProductById = () => geStudentById(parameter)
-    }
-  
+    // if(parameter && edit === true){
+    //   getProductById = () => geStudentById(parameter)
+    // }
   
     const { data } = useQuery({
       queryKey: [`${FEATURES.students}`, parameter],
-      queryFn: getProductById,
+      queryFn:  () => geStudentById(parameter),
     })
+
   
     const editStudent = useMutation({
       mutationFn: updateStudent,

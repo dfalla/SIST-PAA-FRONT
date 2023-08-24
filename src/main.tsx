@@ -10,7 +10,7 @@ import { App } from './router'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <AppProvider>
@@ -20,5 +20,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </AppProvider>
       </QueryClientProvider>
     </ChakraProvider>
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )
