@@ -1,4 +1,4 @@
-import { CustomModal } from '@/common';
+import { DeleteModal } from '@/common';
 import {
   Box,
   useColorModeValue,
@@ -91,7 +91,7 @@ export const CardStudent = ({id_student, image, last_name, mother_last_name, nam
         >
           Editar
         </Button>
-        <CustomModal
+        <DeleteModal
           color={'red'}
           id_student={id_student}
           last_name={last_name}

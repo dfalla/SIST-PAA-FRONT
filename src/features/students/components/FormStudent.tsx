@@ -13,6 +13,7 @@ import {
     Progress,
     ButtonGroup,
     Flex,
+    IconButton,
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import { useNavigate, useParams } from "react-router-dom";
@@ -21,12 +22,14 @@ import { useAddStudent, useEditStudent } from '../hooks';
 import { STUDENT } from '../interfaces';
 import { DocumentationForm, PersonalInformationForm, ArtisticReference } from '../form';
 import { customDateRevert, transformData, trueOrFalse } from '@/helpers';
+import { LiaEdit } from 'react-icons/lia';
 
 interface Props {
-    edit: boolean | undefined;
+    icon?             : boolean;
+    edit             : boolean | undefined;
 }
 
-export const FormStudent: FC<Props> = ({ edit }) => {
+export const FormStudent: FC<Props> = ({ edit, icon }) => {
 
     const [initialValues, setInitialValues] = useState<STUDENT>(INITIALVALUES);
 
@@ -52,8 +55,8 @@ export const FormStudent: FC<Props> = ({ edit }) => {
 
     const closeModal = useCallback(() => {
         onClose();
-        navigate('/');
-    }, [onClose, navigate])
+        navigate(icon ? '/students/export': '/')
+    }, [onClose, navigate, icon])
 
     useEffect(() => {
         if(isOpen === false) {
@@ -105,9 +108,32 @@ export const FormStudent: FC<Props> = ({ edit }) => {
 
     return (
         <>
-            <Button variant={'outline'} color='white' onClick={onOpen} width={200} alignSelf={"center"}>
-                Registrar alumno
-            </Button>
+
+
+            {
+
+                (!icon && !edit) ? (
+                    <Button variant={'outline'} color='white' onClick={onOpen} width={200} alignSelf={"center"}>
+                        Registrar alumno
+                    </Button>
+                ) : (
+                    <IconButton
+                        color={'brand.clonika.blue.800'}
+                        _hover={{
+                            cursor: 'pointer'
+                        }}
+                        onClick={onOpen}
+                        aria-label='edit sale'
+                        icon={<LiaEdit fontSize={25}/>}
+                        // isDisabled={(id_producto === idMarcaProduct) && edit}
+                    />
+                )
+
+            }
+         
+                
+
+                   
             <Modal
                 initialFocusRef={initialRef}
                 finalFocusRef={finalRef}
@@ -118,7 +144,7 @@ export const FormStudent: FC<Props> = ({ edit }) => {
                                     
                 <ModalContent maxWidth={500}>
                     <ModalHeader textAlign={'center'}>
-                        { id_student ? 'Editar ' : 'Registrar ' }
+                        { id_student ||  icon ? 'Editar ' : 'Registrar ' }
                         alumno
                     </ModalHeader>
                     <ModalCloseButton />

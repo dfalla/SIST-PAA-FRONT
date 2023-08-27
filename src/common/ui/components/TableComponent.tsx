@@ -1,8 +1,9 @@
 import { FC, useRef } from "react";
-import { Box, Button, HStack, IconButton, Table, TableContainer, Tbody, Td, Th, Thead, Tr, TableCaption, Tfoot, Text } from '@chakra-ui/react'
-
-import { STUDENT } from "@/features"
+import { Box, Button, HStack, IconButton, Table, TableContainer, Tbody, Td, Th, Thead, Tr, TableCaption, Text } from '@chakra-ui/react'
+import { LiaEdit } from "react-icons/lia";
+import { FormStudent, STUDENT } from "@/features"
 import { useDownloadExcel  } from 'react-export-table-to-excel';
+import { DeleteModal } from "@/common";
 
 interface STUDENTS extends STUDENT {
     id_student: string
@@ -28,7 +29,6 @@ export const TableComponent: FC<TableComponentProps> = ({
     colorScheme,
     variant,
     title, 
-    deleteData,
     editData
 }) => {
 
@@ -48,20 +48,43 @@ export const TableComponent: FC<TableComponentProps> = ({
         gap={5}
         justifyContent={'space-between'}
     >
+
+        <Box
+            alignSelf={'flex-start'}
+        >
+            
+        </Box>
+
+
         <TableContainer>
             <Table variant={variant} ref={tableRef} colorScheme={colorScheme} size='sm'>
-                { exportTableExcel && 
+
                     <TableCaption placement='top' mb={5} mt={0}> 
                         <Text fontWeight={'bold'} fontSize={30} color={'brand.clonika.blue.800'}> 
                            { title }
                         </Text>
-                    </TableCaption> }
+                    </TableCaption>
+
+                    <TableCaption placement='bottom' mb={5} mt={0} alignItems={'flex-start'}> 
+                        {
+                            exportTableExcel && (
+                                <Button
+                                    colorScheme='whatsapp'
+                                    onClick={onDownload}
+                                >
+                                    Exportar en Excel
+                                </Button>
+                            ) 
+                        }
+                    </TableCaption>
+
+                    {/* */}
                 
                 <Thead>
                     <Tr >
                         {
                             heads.map((head, index)=>(
-                                <Th key={index} fontSize={18} textAlign={'start'} color={'brand.clonika.blue.800'} width={'200px'}>{head}</Th>
+                                <Th key={index} fontSize={15} textAlign={'start'} color={'brand.clonika.blue.800'} width={'50px'}>{head}</Th>
                             )) 
 
 
@@ -103,70 +126,32 @@ export const TableComponent: FC<TableComponentProps> = ({
                             <Td textAlign={'start'} width={'200px'}>{level}</Td>
                             <Td textAlign={'start'} width={'200px'}>{amount_payable}</Td>
                             <Td textAlign={'start'} width={'200px'}>{active}</Td>
-                            {/* <Td>
-                                {
-                                    !exportTableExcel && 
-                                    (
-                                        <HStack
-                                            gap={2}
-                                            justifyContent={'center'}
-                                        >
-                                            <IconButton
-                                                color={'brand.clonika.blue.800'}
-                                                _hover={{
-                                                    cursor: 'pointer'
-                                                }}
-                                                aria-label='edit sale'
-                                                icon={<LiaEdit fontSize={25}/>}
-                                                onClick={()=>deleteData!(id_student!)}
-                                                isDisabled={(id_producto === idMarcaProduct) && edit}
-                                            />
+                            <Td>
+                                <HStack
+                                    gap={2}
+                                    justifyContent={'center'}
+                                >
+                                    <FormStudent edit={true} icon={true}/>
 
-                                            <IconButton
-                                                color={'red'} 
-                                                _hover={{
-                                                    cursor: 'pointer'
-                                                }}
-                                                aria-label='delete sale'
-                                                icon={<LiaTrashSolid fontSize={25}/>}
-                                                onClick={()=>deleteProductToCart!(id_producto!)}
-                                                isDisabled={(id_producto === idMarcaProduct) && edit}
-                                            />
-                                        </HStack>
-                                    )
-                                }
-                                
-                            </Td> */}
+                                    <DeleteModal
+                                        color={'red'}
+                                        icon={true}
+                                        id_student={id_student}
+                                        last_name={last_name}
+                                        mother_last_name={mother_last_name}
+                                        msg={'Estás seguro de eliminar al alumn@: '}
+                                        name={name}
+                                        text={'Eliminar alumno'}
+                                    />
+                                </HStack>
+                            </Td>
                         </Tr>
                         ))
                     }
                 </Tbody>
-                {/* <Tfoot>
-                    {
-                        array?.length > 0 && (
-                        <Tr background={'brand.clonika.blue.800'} color={'white'} mt={5}>
-                            <Td colSpan={3} textAlign={'center'} fontWeight={'bold'} >{exportTableExcel ? 'Venta Total' : 'Total a pagar' } </Td>
-                            <Td colSpan={2} fontWeight={'bold'} textAlign={'inherit'}>{`S/.${ exportTableExcel ? pagoTotal : totalAPagar }`}</Td>
-                        </Tr>
-                        ) 
-                    }
-                </Tfoot> */}
             </Table>
         </TableContainer>
-        <Box
-            alignSelf={'flex-start'}
-        >
-            {
-                exportTableExcel && (
-                    <Button
-                        colorScheme='whatsapp'
-                        onClick={onDownload}
-                    >
-                        Exportar en Excel
-                    </Button>
-                ) 
-            }
-        </Box>
+     
     </HStack>
   )
 }

@@ -10,21 +10,24 @@ import {
     ModalCloseButton,
     Button,
     useDisclosure,
+    IconButton,
 } from '@chakra-ui/react'
+import { LiaTrashSolid } from "react-icons/lia";
 import { useDeleteStudent } from '@/features/students/hooks';
 
 interface Props {
-    id_student: string;
-    msg: string;
-    name: string;
-    text: string;
-    last_name: string;
-    mother_last_name: string;
-    color: string;
+    icon?            : boolean;
+    id_student       : string;
+    msg              : string;
+    name             : string;
+    text             : string;
+    last_name        : string;
+    mother_last_name : string;
+    color            : string;
 }
 
 
-export const CustomModal: FC<Props> = ({ last_name, mother_last_name, name, msg, color, id_student, text }) => {
+export const DeleteModal: FC<Props> = ({ last_name, mother_last_name, name, msg, color, id_student, text, icon }) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { mutate } = useDeleteStudent();
@@ -33,16 +36,32 @@ export const CustomModal: FC<Props> = ({ last_name, mother_last_name, name, msg,
     }
     return (
       <>
-        <Button 
+
+      {
+        icon ? 
+          (<IconButton
             onClick={onOpen} 
-            color={'white'}
-            colorScheme={color}
-            flex={1}
-            fontSize={'sm'}
-            rounded={'full'}
-        > 
+            color={'red'} 
+            _hover={{
+                cursor: 'pointer'
+            }}
+            aria-label='delete student'
+            icon={<LiaTrashSolid fontSize={25}/>} 
+          />) : 
+          (
+            <Button 
+              onClick={onOpen} 
+              color={'white'}
+              colorScheme={color}
+              flex={1}
+              fontSize={'sm'}
+              rounded={'full'}
+          > 
             Eliminar 
-        </Button>
+          </Button>
+          )
+      }
+        
         <Modal
           isCentered
           onClose={onClose}

@@ -1,5 +1,6 @@
 import { TableComponent } from "@/common"
 import { useGetAllStudents } from ".."
+import { Box } from "@chakra-ui/react";
 
 const HEADS: string[] = [
   'NOMBRE',
@@ -10,21 +11,26 @@ const HEADS: string[] = [
   'DOMICILIO',
   'TELÉFONO',
   'EDAD',
-  'FECHA INGRESO',
-  'CATEGORIA',
+  'INGRESO',
+  'CAT.',
   'NIVEL',
-  'MONTO',
-  'ACTIVO'
+  'PAGO',
+  'ACTIVO',
+  'ACCIONES'
 ]
 
 export const ExportStudents = () => {
   const { data } = useGetAllStudents();
   return (
-    <TableComponent
-      data = { data! }
-      heads={HEADS}
-      title="Registro de estudiantes" 
-      variant='unstyled'
-    />
+
+    <Box mt={5}> 
+      <TableComponent
+        data = { data! }
+        heads={HEADS}
+        title="Estudiantes Registrados" 
+        variant='striped'
+        exportTableExcel={true}
+      />
+    </Box>
   )
 }
