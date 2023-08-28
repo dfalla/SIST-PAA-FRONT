@@ -36,7 +36,6 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-
     const [step, setStep] = useState(1);
 
     const [progress, setProgress] = useState(33.33);
@@ -107,8 +106,6 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
 
     return (
         <>
-
-
             {
 
                 (!icon && !edit) ? (
@@ -128,9 +125,6 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
                 )
 
             }
-         
-                
-
                    
             <Modal
                 initialFocusRef={initialRef}
@@ -151,9 +145,7 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
                             initialValues={ initialValues }
                             validationSchema={validationSchema}
                             onSubmit={(values, { resetForm })=>{
-                                console.log("values", values)
                                 const { valuesToSend } = transformData(values)
-                                // console.log("valuesToSend", valuesToSend)
                                 if(!id_student && !edit){
                                     addStudent.mutate(valuesToSend)
                                 }

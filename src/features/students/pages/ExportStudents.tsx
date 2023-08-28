@@ -1,5 +1,4 @@
-import { TableComponent } from "@/common"
-import { useGetAllStudents } from ".."
+import { TableStudents, useGetAllStudents } from ".."
 import { Box } from "@chakra-ui/react";
 
 const HEADS: string[] = [
@@ -21,10 +20,11 @@ const HEADS: string[] = [
 
 export const ExportStudents = () => {
   const { data } = useGetAllStudents();
+
   return (
 
     <Box mt={5}> 
-      <TableComponent
+      <TableStudents
         data = { data! }
         heads={HEADS}
         title="Estudiantes Registrados" 

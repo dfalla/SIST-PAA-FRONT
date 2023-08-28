@@ -1,27 +1,24 @@
 import { FC, useRef } from "react";
-import { Box, Button, HStack, Table, TableContainer, Tbody, Td, Th, Thead, Tr, TableCaption, Text } from '@chakra-ui/react'
-import { FormStudent, STUDENT } from "@/features"
+import { Button, HStack, Table, TableContainer, Tbody, Td, Th, Thead, Tr, TableCaption, Text } from '@chakra-ui/react'
 import { useDownloadExcel  } from 'react-export-table-to-excel';
+import { FormStudent, STUDENT } from "@/features"
 import { DeleteModal } from "@/common";
 
 interface STUDENTS extends STUDENT {
     id_student: string
 }
 
-
-
-interface TableComponentProps {
+interface TableStudentsProps {
     data                  : STUDENTS[];
     colorScheme?          : string;
     variant               : string;
     title                 : string;
     exportTableExcel?     : boolean;
     heads                 : string[];
-    editData?             : (id: string) => void;
-    deleteData?           : (id: string) => void;
+    editData?             : ({id_student, open}: {id_student: string, open: boolean}) => JSX.Element;
 }
 
-export const TableComponent: FC<TableComponentProps> = ({
+export const TableStudents: FC<TableStudentsProps> = ({
     data,
     exportTableExcel,
     heads,
@@ -37,8 +34,6 @@ export const TableComponent: FC<TableComponentProps> = ({
         filename: `Alumnos PAA`,
         sheet: 'Registro',
     })
-
-
     
   return (
     <HStack
@@ -46,14 +41,7 @@ export const TableComponent: FC<TableComponentProps> = ({
         gap={5}
         justifyContent={'space-between'}
     >
-
-        <Box
-            alignSelf={'flex-start'}
-        >
-            
-        </Box>
-
-
+       
         <TableContainer>
             <Table variant={variant} ref={tableRef} colorScheme={colorScheme} size='sm'>
 
@@ -76,8 +64,6 @@ export const TableComponent: FC<TableComponentProps> = ({
                         }
                     </TableCaption>
 
-                    {/* */}
-                
                 <Thead>
                     <Tr >
                         {
