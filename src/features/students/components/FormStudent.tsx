@@ -124,7 +124,6 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
                         onClick={onOpen}
                         aria-label='edit sale'
                         icon={<LiaEdit fontSize={25}/>}
-                        // isDisabled={(id_producto === idMarcaProduct) && edit}
                     />
                 )
 
