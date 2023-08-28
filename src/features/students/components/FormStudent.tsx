@@ -1,4 +1,4 @@
-import  { useCallback, useEffect, useRef, useState, FC}  from 'react';
+import  { useCallback, useEffect, useRef, useState, FC, memo}  from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -26,14 +26,13 @@ import { LiaEdit } from 'react-icons/lia';
 
 interface Props {
     icon?             : boolean;
-    edit             : boolean | undefined;
+    id?               : string;   
+    edit              : boolean | undefined;
 }
 
-export const FormStudent: FC<Props> = ({ edit, icon }) => {
+export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
 
     const [initialValues, setInitialValues] = useState<STUDENT>(INITIALVALUES);
-
-
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -45,13 +44,13 @@ export const FormStudent: FC<Props> = ({ edit, icon }) => {
     const initialRef = useRef(null)
     const finalRef = useRef(null)
 
-    const {id_student} = useParams();
+    const { id_student } = useParams();
     const navigate = useNavigate();
 
     const { addStudent } = useAddStudent();
 
 
-    const { data, editStudent } = useEditStudent({ parameter: id_student!})
+    const { data, editStudent } = useEditStudent({ parameter: id_student! || id!})
 
     const closeModal = useCallback(() => {
         onClose();
@@ -160,8 +159,8 @@ export const FormStudent: FC<Props> = ({ edit, icon }) => {
                                     addStudent.mutate(valuesToSend)
                                 }
 
-                                if(id_student !== undefined && edit === true){
-                                    editStudent.mutate({id_student, values: valuesToSend})
+                                if((id_student !== undefined && edit === true) || id !== undefined){
+                                    editStudent.mutate({id_student: id_student! || id!, values: valuesToSend})
                                 }
                                 resetForm();
                                 closeModal()
@@ -246,7 +245,7 @@ export const FormStudent: FC<Props> = ({ edit, icon }) => {
                                                                     mr={3}
                                                                     type="submit"
                                                                 >
-                                                                    { id_student ? 'Editar' : 'Registrar' }
+                                                                    { (id_student || id) ? 'Editar' : 'Registrar' }
                                                                 </Button>
                                                             </HStack>
                                                         )}
@@ -262,7 +261,7 @@ export const FormStudent: FC<Props> = ({ edit, icon }) => {
             </Modal>
         </>
     )
-}
+})
 
 
 

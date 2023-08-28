@@ -1,6 +1,5 @@
 import { FC, useRef } from "react";
-import { Box, Button, HStack, IconButton, Table, TableContainer, Tbody, Td, Th, Thead, Tr, TableCaption, Text } from '@chakra-ui/react'
-import { LiaEdit } from "react-icons/lia";
+import { Box, Button, HStack, Table, TableContainer, Tbody, Td, Th, Thead, Tr, TableCaption, Text } from '@chakra-ui/react'
 import { FormStudent, STUDENT } from "@/features"
 import { useDownloadExcel  } from 'react-export-table-to-excel';
 import { DeleteModal } from "@/common";
@@ -29,7 +28,6 @@ export const TableComponent: FC<TableComponentProps> = ({
     colorScheme,
     variant,
     title, 
-    editData
 }) => {
 
     const tableRef = useRef(null);
@@ -131,7 +129,7 @@ export const TableComponent: FC<TableComponentProps> = ({
                                     gap={2}
                                     justifyContent={'center'}
                                 >
-                                    <FormStudent edit={true} icon={true}/>
+                                    <FormStudent edit={true} icon={true} id={id_student}/>
 
                                     <DeleteModal
                                         color={'red'}
