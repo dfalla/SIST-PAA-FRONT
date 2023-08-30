@@ -22,6 +22,9 @@ export const useAddStudent = () => {
           queryKey: [`${FEATURES.students}`],  
           refetchType: 'active',
         })
+      },
+      onError: (error)=>{
+        console.log("error desde useAddStudent", error)
       }
     })
 

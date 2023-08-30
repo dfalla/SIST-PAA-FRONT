@@ -34,10 +34,12 @@ export const createStudent = async( values: Student) => {
     }
 
     try {
-        await Http.post(`/${URL}`, formData)
+       const {data }= await Http.post(`/${URL}`, formData)
+       return data;
 
     } catch (error) {
-        console.log('error', error)
+        console.log("error", error)
+        return error;
     }
 }
 

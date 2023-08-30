@@ -17,7 +17,13 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import { useNavigate, useParams } from "react-router-dom";
-import { validationSchema, INITIALVALUES } from '../domain';
+import { 
+    // validationSchema,
+    PersonalInformationvalidationSchema,
+    DocumentationvalidationSchema,
+    ArtisticReferencevalidationSchema ,
+    INITIALVALUES 
+} from '../domain';
 import { useAddStudent, useEditStudent } from '../hooks';
 import { STUDENT } from '../interfaces';
 import { DocumentationForm, PersonalInformationForm, ArtisticReference } from '../form';
@@ -143,9 +149,14 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
                     <ModalBody pb={6}>
                         <Formik
                             initialValues={ initialValues }
-                            validationSchema={validationSchema}
+                            validationSchema={
+                                step === 1 && PersonalInformationvalidationSchema ||
+                                step === 2 && DocumentationvalidationSchema ||
+                                step === 3 && ArtisticReferencevalidationSchema
+                            }
                             onSubmit={(values, { resetForm })=>{
                                 const { valuesToSend } = transformData(values)
+
                                 if(!id_student && !edit){
                                     addStudent.mutate(valuesToSend)
                                 }
@@ -171,7 +182,7 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
                                         >
                                             <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
                                                 {step === 1 && (<PersonalInformationForm setFieldValue={setFieldValue}/>)}
-                                                { step === 2 && (<DocumentationForm values={values}/>)} 
+                                                {step === 2 && (<DocumentationForm values={values}/>)} 
                                                 {step === 3 && (<ArtisticReference isChecked={values.active}/>)}
                                                 <ButtonGroup mt="5%" w="100%">
                                                     <Flex w="100%" justifyContent="space-between">

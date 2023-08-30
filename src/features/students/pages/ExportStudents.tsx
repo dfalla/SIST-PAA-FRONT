@@ -3,12 +3,12 @@ import { Box } from "@chakra-ui/react";
 
 const HEADS: string[] = [
   'NOMBRE',
-  'AP. PATERNO',
-  'AP. MATERNO',
+  'AP. PAT',
+  'AP. MAT',
   'TIP. DOC',
   'NUM. DOC',
-  'DOMICILIO',
-  'TELÉFONO',
+  'DIR',
+  'TELF',
   'EDAD',
   'INGRESO',
   'CAT.',

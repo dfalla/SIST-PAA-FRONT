@@ -3,16 +3,8 @@ export interface Item{
     name: string;
     last_name: string;
     mother_last_name: string;
-    image: string;
-    dni: string;
-}
- 
-export interface STUDENT {
-    name: string;
-    last_name: string;
-    mother_last_name: string;
     phone_number: number | string;
-    image: File | null;
+    image: string ;
     address: string | null;
     type_document: string;
     document_number: number | string;
@@ -22,7 +14,26 @@ export interface STUDENT {
     active: boolean;
     level: string; 
     amount_payable: number;
-
+    times_created: number;
+}
+ 
+export interface STUDENT {
+    id_student?: string;
+    name: string;
+    last_name: string;
+    mother_last_name: string;
+    phone_number: number | string;
+    image: File | null ;
+    address: string | null;
+    type_document: string;
+    document_number: string;
+    age: string;
+    date_admission: string;
+    category: string;
+    active: boolean | string;
+    level: string; 
+    amount_payable: number;
+    times_created?: number;
 }
 
 export interface OptionsProps {

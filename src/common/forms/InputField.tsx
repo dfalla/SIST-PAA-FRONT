@@ -7,37 +7,30 @@ import { SafeAny } from "..";
 interface Props { 
     label: string;
     name: string;
-    type?: 'text' | 'email' | 'password' | 'number' | 'date';
+    type?: 'text' | 'email' | 'password' | 'number' | 'date' | 'file';
     placeholder?: string;
     [x: string]: SafeAny;
 }
 
-export const InputField = ({ label, ...props }: Props) => {
+export const InputField = ({ label, ...props  }: Props) => {
 
   const [ field ] = useField(props);
 
-  // const { calculateCantidad } = useSales();
-
-  // useEffect(() => {
-  //   if(field.name === 'cantidad'){
-  //     calculateCantidad(field.value);
-  //   }
-  // }, [field]);
-
   return (
-    <FormControl>
-      <FormLabel htmlFor={props.id || props.name} marginBottom={3} marginTop={5}>
+  <>
+    <FormControl marginTop={10}>
+      <FormLabel htmlFor={props.id || props.name} marginBottom={3}>
         <Text fontWeight={'bold'}>
           {label}
         </Text>
+        <Input className="input-text" type="text" {...field} {...props}/>
       </FormLabel>
-      <Input className="input-text" type="text" {...field} {...props}/>
       <Box
         color={'red'}
-        marginTop={3}
       >
         <ErrorMessage name={ props.name }/>
       </Box>
     </FormControl>
+  </>
   )
 }

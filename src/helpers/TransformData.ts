@@ -8,7 +8,6 @@ export const transformData = (values:STUDENT) => {
         values.address = null
     }
     values.age = values.age.toString();
-    values.document_number = values.document_number.toString();
     values.phone_number = values.phone_number.toString();
     values.date_admission = customDate(values.date_admission);
 

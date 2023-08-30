@@ -1,5 +1,6 @@
 import { FC, useRef } from "react";
-import { Button, HStack, Table, TableContainer, Tbody, Td, Th, Thead, Tr, TableCaption, Text } from '@chakra-ui/react'
+import { Button, HStack, Table, TableContainer, Tbody, Td, Th, Thead, Tr, TableCaption, Text, Tooltip } from '@chakra-ui/react'
+import { InfoIcon } from '@chakra-ui/icons'
 import { useDownloadExcel  } from 'react-export-table-to-excel';
 import { FormStudent, STUDENT } from "@/features"
 import { DeleteModal } from "@/common";
@@ -97,19 +98,23 @@ export const TableStudents: FC<TableStudentsProps> = ({
                         <Tr
                             key={`${id_student}-${document_number}`}
                         >
-                            <Td textAlign={'start'} width={'200px'}>{name}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{last_name}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{mother_last_name}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{type_document}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{document_number}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{address}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{phone_number}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{age}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{date_admission}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{category}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{level}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{amount_payable}</Td>
-                            <Td textAlign={'start'} width={'200px'}>{active}</Td>
+                            <Td textAlign={'start'}>{name}</Td>
+                            <Td textAlign={'start'}>{last_name}</Td>
+                            <Td textAlign={'start'}>{mother_last_name}</Td>
+                            <Td textAlign={'start'}>{type_document}</Td>
+                            <Td textAlign={'start'}>{document_number}</Td>
+                            <Td textAlign={'start'} maxWidth={'100px'}>
+                                <Tooltip label={`${address}`} fontSize='md' bg={'brand.clonika.blue.800'}>
+                                    <InfoIcon />
+                                </Tooltip>
+                            </Td>
+                            <Td textAlign={'start'}>{phone_number}</Td>
+                            <Td textAlign={'start'}>{age}</Td>
+                            <Td textAlign={'start'}>{date_admission}</Td>
+                            <Td textAlign={'start'}>{category}</Td>
+                            <Td textAlign={'start'}>{level}</Td>
+                            <Td textAlign={'start'}>{amount_payable}</Td>
+                            <Td textAlign={'start'}>{active}</Td>
                             <Td>
                                 <HStack
                                     gap={2}

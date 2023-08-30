@@ -32,7 +32,7 @@ export const PersonalInformationForm: FC<PropsPersonalInformation> = ({setFieldV
                 <InputField
                     name='phone_number'
                     label='Teléfono'
-                    type='number'
+                    type='text'
                     variant={'filled'}
                 />
             </HStack>
@@ -60,7 +60,6 @@ export const PersonalInformationForm: FC<PropsPersonalInformation> = ({setFieldV
             <Text fontWeight={'bold'}>
                 Foto
             </Text>
-
             <Input
                 name='image'
                 onChange={(e: SafeAny)=>setFieldValue('image', e.target.files[0])}

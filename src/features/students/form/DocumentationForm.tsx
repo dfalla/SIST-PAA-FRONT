@@ -35,7 +35,7 @@ export const DocumentationForm:FC<PropsDocumentation> = ({values}) => {
                 <InputField
                     name='document_number'
                     label='Número de documento'
-                    type='number'
+                    type='text'
                     variant={'filled'}
                     disabled={ !values.type_document }
                 />
