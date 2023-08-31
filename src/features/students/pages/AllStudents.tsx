@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { 
   Accordion,
   AccordionItem,
@@ -22,6 +22,7 @@ interface Props {
 export const AllStudents: FC<Props> = ({ edit }) => {
   const { data } = useGetAllStudents();
 
+  const [filteredData, setFilteredData] = useState<Item[]>(data);
   
 
 
@@ -32,10 +33,10 @@ export const AllStudents: FC<Props> = ({ edit }) => {
   let salary: number = 0;
 
 
-  if(data !== undefined) {
+  if(filteredData !== undefined) {
     salary = data!.filter((student: STUDENT)=>student.active === 'true').reduce((acumulator: number, element: STUDENT) => acumulator + element.amount_payable, 0)
 
-    const { adults, children, youths} = orderDataForHoursRegistred(data)
+    const { adults, children, youths} = orderDataForHoursRegistred(filteredData)
     childrenArr = children;
     youthsArr = youths;
     adultsArr = adults;
@@ -56,7 +57,7 @@ export const AllStudents: FC<Props> = ({ edit }) => {
           alignItems={["center", "center", "center", "center"]}
           
         >
-          <Filter/>
+          <Filter data={data} setFilteredData={setFilteredData}/>
 
           <HStack gap={10}>
           <FormStudent  edit={ edit }/>
@@ -70,7 +71,7 @@ export const AllStudents: FC<Props> = ({ edit }) => {
         </HStack>
 
         <Accordion allowMultiple>
-          <AccordionItem>
+          <AccordionItem border={'none'}>
             <h2>
               <AccordionButton>
                 <Box as="span" flex='1' textAlign='center' color={'white'}>
@@ -97,7 +98,7 @@ export const AllStudents: FC<Props> = ({ edit }) => {
             </AccordionPanel>
           </AccordionItem>
 
-          <AccordionItem>
+          <AccordionItem border={'none'}>
             <h2>
               <AccordionButton>
                 <Box as="span" flex='1' textAlign='center' color={'white'}>
@@ -124,7 +125,7 @@ export const AllStudents: FC<Props> = ({ edit }) => {
             </AccordionPanel>
           </AccordionItem>
 
-          <AccordionItem>
+          <AccordionItem border={'none'}>
             <h2>
               <AccordionButton>
                 <Box as="span" flex='1' textAlign='center' color={'white'}>

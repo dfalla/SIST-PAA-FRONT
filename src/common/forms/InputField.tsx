@@ -17,9 +17,8 @@ export const InputField = ({ label, ...props  }: Props) => {
   const [ field ] = useField(props);
 
   return (
-  <>
-    <FormControl marginTop={10}>
-      <FormLabel htmlFor={props.id || props.name} marginBottom={3}>
+    <FormControl>
+      <FormLabel htmlFor={props.id || props.name} >
         <Text fontWeight={'bold'}>
           {label}
         </Text>
@@ -31,6 +30,5 @@ export const InputField = ({ label, ...props  }: Props) => {
         <ErrorMessage name={ props.name }/>
       </Box>
     </FormControl>
-  </>
   )
 }

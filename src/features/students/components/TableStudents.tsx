@@ -1,8 +1,23 @@
-import { FC, useRef } from "react";
-import { Button, HStack, Table, TableContainer, Tbody, Td, Th, Thead, Tr, TableCaption, Text, Tooltip } from '@chakra-ui/react'
+import { FC, useRef, useState } from "react";
+import { 
+    Box ,
+    Button, 
+    HStack, 
+    Table, 
+    TableContainer, 
+    Tbody, 
+    Td, 
+    Th, 
+    Thead, 
+    Tr, 
+    TableCaption, 
+    Text, 
+    Tooltip, 
+} from '@chakra-ui/react'
+
 import { InfoIcon } from '@chakra-ui/icons'
 import { useDownloadExcel  } from 'react-export-table-to-excel';
-import { FormStudent, STUDENT } from "@/features"
+import { FilterTableStudent, FormStudent, STUDENT } from "@/features"
 import { DeleteModal } from "@/common";
 
 interface STUDENTS extends STUDENT {
@@ -28,6 +43,8 @@ export const TableStudents: FC<TableStudentsProps> = ({
     title, 
 }) => {
 
+    const [filteredData, setFilteredData] = useState<STUDENT[]>(data!);
+
     const tableRef = useRef(null);
    
     const { onDownload } = useDownloadExcel({
@@ -46,10 +63,19 @@ export const TableStudents: FC<TableStudentsProps> = ({
         <TableContainer>
             <Table variant={variant} ref={tableRef} colorScheme={colorScheme} size='sm'>
 
-                    <TableCaption placement='top' mb={5} mt={0}> 
-                        <Text fontWeight={'bold'} fontSize={30} color={'brand.clonika.blue.800'}> 
-                           { title }
-                        </Text>
+                    <TableCaption placement='top' mb={5} mt={0}>
+                        <HStack justifyContent={'space-between'}>
+                            <Box></Box>
+                            <Text fontWeight={'bold'} fontSize={30} color={'brand.clonika.blue.800'}> 
+                            { title }
+                            </Text>
+                        
+                            <Box>
+                             <FilterTableStudent data={data} setFilteredData={setFilteredData}/>
+                            </Box>
+                        
+                        
+                        </HStack> 
                     </TableCaption>
 
                     <TableCaption placement='bottom' mb={5} mt={0} alignItems={'flex-start'}> 
@@ -78,7 +104,7 @@ export const TableStudents: FC<TableStudentsProps> = ({
                 </Thead>
                 <Tbody mb={20}>
                     {
-                        data?.map(({
+                        filteredData?.map(({
                             id_student, 
                             active, 
                             address, 
@@ -93,7 +119,7 @@ export const TableStudents: FC<TableStudentsProps> = ({
                             name, 
                             phone_number,
                             type_document 
-                        }: STUDENTS) => (
+                        }) => (
                             
                         <Tr
                             key={`${id_student}-${document_number}`}
@@ -125,7 +151,7 @@ export const TableStudents: FC<TableStudentsProps> = ({
                                     <DeleteModal
                                         color={'red'}
                                         icon={true}
-                                        id_student={id_student}
+                                        id_student={id_student!}
                                         last_name={last_name}
                                         mother_last_name={mother_last_name}
                                         msg={'Estás seguro de eliminar al alumn@: '}

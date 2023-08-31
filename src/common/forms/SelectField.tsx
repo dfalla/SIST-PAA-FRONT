@@ -16,7 +16,7 @@ export const SelectField = ({ label, options, ...props }: Props) => {
 
   return (
     <FormControl >
-      <FormLabel htmlFor={props.id || props.name} marginBottom={3} marginTop={5}>
+      <FormLabel htmlFor={props.id || props.name}>
         <Text fontWeight={'bold'}>
           {label}
         </Text>

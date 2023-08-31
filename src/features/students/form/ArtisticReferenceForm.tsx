@@ -4,39 +4,7 @@ import {
     HStack,
 } from '@chakra-ui/react';
 import { InputField, SelectField, SwitchField } from '@/common';
-import { OptionsProps } from "../interfaces"
-
-const optionsCategory: OptionsProps[] = [
-    {
-        label: 'Niños',
-        value: 'nino'
-    },
-    {
-        label: 'Jóvenes',
-        value: 'joven'
-    },
-    {
-        label: 'Adultos',
-        value: 'adulto'
-    },
-]
-
-const optionsLevel: OptionsProps[] = [
-    {
-        label: 'Básico',
-        value: 'basico'
-    },
-    {
-        label: 'Intermedio',
-        value: 'intermedio'
-    },
-    {
-        label: 'Avanzado',
-        value: 'avanzado'
-    },
-]
-
-
+import { optionsCategory, optionsLevel } from '..';
 
 export const ArtisticReference = ({isChecked}: {isChecked:string | boolean})=> {
     return(
