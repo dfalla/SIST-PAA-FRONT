@@ -12,13 +12,16 @@ import {
     Tr, 
     TableCaption, 
     Text, 
-    Tooltip, 
+    Tooltip,
 } from '@chakra-ui/react'
 
 import { InfoIcon } from '@chakra-ui/icons'
+import { BiCheckCircle } from "react-icons/bi";
+import { RiCloseCircleLine } from "react-icons/ri";
 import { useDownloadExcel  } from 'react-export-table-to-excel';
 import { FilterTableStudent, FormStudent, STUDENT } from "@/features"
 import { DeleteModal } from "@/common";
+import { FiDownload } from "react-icons/fi";
 
 interface STUDENTS extends STUDENT {
     id_student: string
@@ -65,30 +68,29 @@ export const TableStudents: FC<TableStudentsProps> = ({
 
                     <TableCaption placement='top' mb={5} mt={0}>
                         <HStack justifyContent={'space-between'}>
-                            <Box></Box>
-                            <Text fontWeight={'bold'} fontSize={30} color={'brand.clonika.blue.800'}> 
-                            { title }
-                            </Text>
-                        
                             <Box>
-                             <FilterTableStudent data={data} setFilteredData={setFilteredData}/>
+                                <FilterTableStudent data={data} setFilteredData={setFilteredData}/>
                             </Box>
-                        
-                        
-                        </HStack> 
-                    </TableCaption>
 
-                    <TableCaption placement='bottom' mb={5} mt={0} alignItems={'flex-start'}> 
-                        {
-                            exportTableExcel && (
-                                <Button
-                                    colorScheme='whatsapp'
-                                    onClick={onDownload}
-                                >
-                                    Exportar en Excel
-                                </Button>
-                            ) 
-                        }
+                            <Text fontWeight={'bold'} fontSize={30} color={'brand.clonika.blue.800'}> 
+                                { title }
+                            </Text>
+
+                            <Box>
+                                {
+                                    exportTableExcel && (
+                                        <Button
+                                            colorScheme='whatsapp'
+                                            variant={'outline'}
+                                            onClick={onDownload}
+                                            rightIcon={<FiDownload />}
+                                        >
+                                            Descargar
+                                        </Button>
+                                    ) 
+                                }
+                            </Box>
+                        </HStack> 
                     </TableCaption>
 
                 <Thead>
@@ -140,7 +142,11 @@ export const TableStudents: FC<TableStudentsProps> = ({
                             <Td textAlign={'start'}>{category}</Td>
                             <Td textAlign={'start'}>{level}</Td>
                             <Td textAlign={'start'}>{amount_payable}</Td>
-                            <Td textAlign={'start'}>{active}</Td>
+                            <Td textAlign={'start'}>
+                                {
+                                    active === 'true' ? (<BiCheckCircle color={'green'}/>) : (<RiCloseCircleLine color={'red'}/>) 
+                                }
+                            </Td>
                             <Td>
                                 <HStack
                                     gap={2}

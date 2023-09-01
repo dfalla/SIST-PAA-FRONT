@@ -26,3 +26,13 @@ export const trueOrFalse = (value: string) => {
     return true;
   }
 }
+
+export const convertStringTrueOrFalse = (value: boolean) => {
+  if(value === false){
+    return 'false';
+  }
+
+  if(value === true){
+    return 'true';
+  }
+}
