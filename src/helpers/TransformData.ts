@@ -27,7 +27,7 @@ export const trueOrFalse = (value: string) => {
   }
 }
 
-export const convertStringTrueOrFalse = (value: boolean) => {
+export const convertStringTrueOrFalse = (value: boolean | string) => {
   if(value === false){
     return 'false';
   }

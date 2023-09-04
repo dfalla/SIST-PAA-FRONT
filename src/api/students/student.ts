@@ -1,14 +1,16 @@
 import { SafeAny } from "@/common";
 import { FEATURES } from "@/constants";
-import { Student, UpdateStudenttArgs } from "@/interfaces";
+import { Filters, Student, UpdateStudenttArgs } from "@/interfaces";
 import Http from "@/libs";
 
 const URL = FEATURES.students;
 
-export const getStudents = async() => {
+export const getStudents = async(filters?: Filters) => {
     try {
 
-        const { data } = await Http.get(`/${URL}`)
+        const { data } = await Http.get(`/${URL}`, {
+            params: filters,
+        })
         return data!.students;
 
     } catch (error) {

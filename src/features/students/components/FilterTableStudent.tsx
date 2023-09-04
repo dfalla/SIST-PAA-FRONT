@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react';
+import {  useRef, useState } from 'react';
 import { AiOutlineSearch } from "react-icons/ai";
 
 import {
@@ -14,21 +14,18 @@ import {
     VStack,
 } from '@chakra-ui/react'
 import { Formik, Form } from 'formik';
-import { STUDENT, optionsCategory, optionsLevel } from '..';
+import { optionsCategory, optionsLevel } from '..';
 import { InputField, SelectField, SwitchField } from '@/common';
 import moment from 'moment';
 import { convertStringTrueOrFalse } from '@/helpers';
+import { useAppContext } from '@/context';
 
-interface FilterProps {
-    data: STUDENT[];
-    setFilteredData: Dispatch<SetStateAction<STUDENT[]>>
-}
 
 interface FilterArgsState{
     date_admission: string;
     category: string;
     level: string;
-    active: boolean;
+    active: boolean | string;
 }
 
 
@@ -39,9 +36,10 @@ const initialValues: FilterArgsState = {
     active: true,
 }
 
-export const FilterTableStudent: FC<FilterProps> = ({ data, setFilteredData }) => {
+export const FilterTableStudent = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { setFilters } = useAppContext();
 
     const firstField = useRef()
 
@@ -56,69 +54,72 @@ export const FilterTableStudent: FC<FilterProps> = ({ data, setFilteredData }) =
 
         if(valuesFilter.date_admission.length > 0){
             valuesFilter.date_admission = moment(valuesFilter.date_admission, "YYYY-MM-DD").format("DD/MM/YYYY");
-        }
+        } 
+
+        valuesFilter.active = convertStringTrueOrFalse(valuesFilter.active)!;
 
 
+        setFilters(valuesFilter);
 
-        const filteredItems = data.filter((item) => 
-            {
+        // const filteredItems = data.filter((item) => 
+        //     {
 
-                if(valuesFilter.active === false){
+        //         if(valuesFilter.active === false){
 
-                    if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length > 0){
-                        return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level && item.date_admission === valuesFilter.date_admission
-                    }
-                    if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length === 0) {
-                        return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level;
-                    } 
-                    if(valuesFilter.category.length > 0 && valuesFilter.level.length === 0 && valuesFilter.date_admission.length === 0) {
-                        return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category;
-                    } 
-                    if(valuesFilter.level.length > 0 && valuesFilter.category.length === 0 && valuesFilter.date_admission.length === 0) {
-                        return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.level === valuesFilter.level;
-                    } 
-                    if(valuesFilter.date_admission.length > 0 && valuesFilter.category.length === 0 && valuesFilter.level.length === 0) {
-                        return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.date_admission === valuesFilter.date_admission;
-                    } 
-                    return item.active === convertStringTrueOrFalse(valuesFilter.active)
-                } 
+        //             if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length > 0){
+        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level && item.date_admission === valuesFilter.date_admission
+        //             }
+        //             if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length === 0) {
+        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level;
+        //             } 
+        //             if(valuesFilter.category.length > 0 && valuesFilter.level.length === 0 && valuesFilter.date_admission.length === 0) {
+        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category;
+        //             } 
+        //             if(valuesFilter.level.length > 0 && valuesFilter.category.length === 0 && valuesFilter.date_admission.length === 0) {
+        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.level === valuesFilter.level;
+        //             } 
+        //             if(valuesFilter.date_admission.length > 0 && valuesFilter.category.length === 0 && valuesFilter.level.length === 0) {
+        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.date_admission === valuesFilter.date_admission;
+        //             } 
+        //             return item.active === convertStringTrueOrFalse(valuesFilter.active)
+        //         } 
 
-                if(valuesFilter.active === true){
+        //         if(valuesFilter.active === true){
 
-                    if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length > 0){
-                        return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level && item.date_admission === valuesFilter.date_admission
-                    } 
+        //             if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length > 0){
+        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level && item.date_admission === valuesFilter.date_admission
+        //             } 
                     
-                    if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length === 0) {
-                        return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level
-                    }
+        //             if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length === 0) {
+        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level
+        //             }
                     
-                    if(valuesFilter.date_admission.length > 0 && valuesFilter.category.length > 0 && valuesFilter.level.length === 0) {
-                        return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.date_admission === valuesFilter.date_admission && item.category === valuesFilter.category
-                    }
+        //             if(valuesFilter.date_admission.length > 0 && valuesFilter.category.length > 0 && valuesFilter.level.length === 0) {
+        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.date_admission === valuesFilter.date_admission && item.category === valuesFilter.category
+        //             }
                     
-                    if(valuesFilter.date_admission.length > 0 && valuesFilter.level.length > 0 && valuesFilter.category.length === 0) {
-                        return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.date_admission === valuesFilter.date_admission && item.level === valuesFilter.level
-                    }
+        //             if(valuesFilter.date_admission.length > 0 && valuesFilter.level.length > 0 && valuesFilter.category.length === 0) {
+        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.date_admission === valuesFilter.date_admission && item.level === valuesFilter.level
+        //             }
                     
-                    if(valuesFilter.category.length > 0 || valuesFilter.level.length > 0 || valuesFilter.date_admission.length > 0) {
-                        return item.category === valuesFilter.category || item.level === valuesFilter.level || item.date_admission === valuesFilter.date_admission
-                    } 
+        //             if(valuesFilter.category.length > 0 || valuesFilter.level.length > 0 || valuesFilter.date_admission.length > 0) {
+        //                 return item.category === valuesFilter.category || item.level === valuesFilter.level || item.date_admission === valuesFilter.date_admission
+        //             } 
 
-                    return item.active === convertStringTrueOrFalse(valuesFilter.active) 
-                } 
+        //             return item.active === convertStringTrueOrFalse(valuesFilter.active) 
+        //         } 
 
-            } 
+        //     } 
         
-        );
+        // );
 
-        setFilteredData(filteredItems);
+        // setFilteredData(filteredItems);
         onClose();
     };
 
-    useEffect(() => {
-        setFilteredData(data);
-    }, [data, setFilteredData]);
+    // useEffect(() => {
+    //     setFilteredData(data);
+    // }, [data, setFilteredData]);
   
     return (
         <>

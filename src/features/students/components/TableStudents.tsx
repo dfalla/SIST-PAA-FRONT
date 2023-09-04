@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, useRef } from "react";
 import { 
     Box ,
     Button, 
@@ -46,8 +46,6 @@ export const TableStudents: FC<TableStudentsProps> = ({
     title, 
 }) => {
 
-    const [filteredData, setFilteredData] = useState<STUDENT[]>(data!);
-
     const tableRef = useRef(null);
    
     const { onDownload } = useDownloadExcel({
@@ -69,7 +67,7 @@ export const TableStudents: FC<TableStudentsProps> = ({
                     <TableCaption placement='top' mb={5} mt={0}>
                         <HStack justifyContent={'space-between'}>
                             <Box>
-                                <FilterTableStudent data={data} setFilteredData={setFilteredData}/>
+                                <FilterTableStudent/>
                             </Box>
 
                             <Text fontWeight={'bold'} fontSize={30} color={'brand.clonika.blue.800'}> 
@@ -106,7 +104,7 @@ export const TableStudents: FC<TableStudentsProps> = ({
                 </Thead>
                 <Tbody mb={20}>
                     {
-                        filteredData?.map(({
+                        data?.map(({
                             id_student, 
                             active, 
                             address, 

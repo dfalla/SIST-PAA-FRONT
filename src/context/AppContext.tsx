@@ -1,21 +1,25 @@
-import { createContext, memo } from 'react';
+import { Dispatch, SetStateAction, createContext, memo, useState } from 'react';
 import { SafeAny } from '@/common';
+import { Filters } from '@/interfaces';
 interface AppContextProps {
-    logout: () => void;
+    filters: Filters;
+    setFilters: Dispatch<SetStateAction<Filters>>
 }
 
 export const AppContext = createContext<AppContextProps | undefined>(undefined);
 
 export const AppProvider: React.FC<SafeAny> = memo(( {children} ) => {
 
-    const logout = () => {
-        localStorage.removeItem('profile');
-    }
+    const [filters, setFilters] = useState<Filters>({
+        active: 'true',
+    });
+
 
     return ( 
         <AppContext.Provider
             value={{ 
-                logout,
+                filters,
+                setFilters
             }}
         >
             { children }

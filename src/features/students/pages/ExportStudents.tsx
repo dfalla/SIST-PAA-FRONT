@@ -1,3 +1,4 @@
+import { useAppContext } from "@/context";
 import { TableStudents, useGetAllStudents } from ".."
 import { Box } from "@chakra-ui/react";
 
@@ -19,7 +20,8 @@ const HEADS: string[] = [
 ]
 
 export const ExportStudents = () => {
-  const { data } = useGetAllStudents();
+  const { filters } = useAppContext();
+  const { data } = useGetAllStudents(filters);
 
   return (
 
