@@ -73,12 +73,12 @@ const Links: Array<LinkItemProps> = [
     ]
   },
   { 
-    name: 'Pagos', 
-    path: '/pays', 
-  },
-  { 
     name: 'Horarios', 
     path: '/schedules', 
+  },
+  { 
+    name: 'Pagos', 
+    path: '/pays', 
   },
   { 
     name: 'Préstamos', 
