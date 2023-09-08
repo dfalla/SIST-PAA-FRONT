@@ -1,5 +1,6 @@
 export const FEATURES = {
     students                : 'students',
+    schedule                : 'schedule'
 }
 
 export const AUTH = {

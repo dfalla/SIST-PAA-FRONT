@@ -38,7 +38,9 @@ interface Props {
 
 export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
 
-    const [initialValues, setInitialValues] = useState<STUDENT>(INITIALVALUES);
+    console.log("me ejecuto")
+
+    const [initialValues, setInitialValues] = useState<STUDENT>(INITIALVALUES);    
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -47,6 +49,7 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
     const [progress, setProgress] = useState(33.33);
 
     const initialRef = useRef(null)
+
     const finalRef = useRef(null)
 
     const { id_student } = useParams();
@@ -61,6 +64,7 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
         onClose();
         navigate(icon ? '/students/export': '/')
     }, [onClose, navigate, icon])
+
 
     useEffect(() => {
         if(isOpen === false) {
@@ -115,7 +119,13 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
             {
 
                 (!icon && !edit) ? (
-                    <Button variant={'outline'} color='white' onClick={onOpen} width={200} alignSelf={"center"}>
+                    <Button 
+                        variant={'outline'} 
+                        color='white' 
+                        onClick={onOpen} 
+                        width={200} 
+                        alignSelf={"center"}
+                    >
                         Registrar alumno
                     </Button>
                 ) : (

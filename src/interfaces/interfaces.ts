@@ -20,6 +20,21 @@ export interface Student{
      
 }
 
+export interface Schedule{
+    monday?    : string;
+    tuesday?   : string;
+    wednesday? : string;
+    thursday?  : string;
+    friday?    : string;
+    saturday?  : string;
+    schedule   : string
+}
+
+export interface UpdateScheduleArgs{
+    id_schedule: string;
+    values: Schedule;
+}
+
 export interface UpdateStudenttArgs{
     id_student: string;
     values: Student;

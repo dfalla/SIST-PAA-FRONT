@@ -1,4 +1,8 @@
-import { FC, useRef } from "react";
+import { 
+    FC, 
+    useRef, 
+    // useState 
+} from "react";
 import { 
     Box ,
     Button, 
@@ -13,6 +17,8 @@ import {
     TableCaption, 
     Text, 
     Tooltip,
+    // IconButton,
+    // useDisclosure,
 } from '@chakra-ui/react'
 
 import { InfoIcon } from '@chakra-ui/icons'
@@ -22,6 +28,7 @@ import { useDownloadExcel  } from 'react-export-table-to-excel';
 import { FilterTableStudent, FormStudent, STUDENT } from "@/features"
 import { DeleteModal } from "@/common";
 import { FiDownload } from "react-icons/fi";
+// import { LiaEdit, LiaTrashSolid } from "react-icons/lia";
 
 interface STUDENTS extends STUDENT {
     id_student: string
@@ -36,6 +43,7 @@ interface TableStudentsProps {
     heads                 : string[];
     editData?             : ({id_student, open}: {id_student: string, open: boolean}) => JSX.Element;
 }
+
 
 export const TableStudents: FC<TableStudentsProps> = ({
     data,
@@ -53,6 +61,9 @@ export const TableStudents: FC<TableStudentsProps> = ({
         filename: `Alumnos PAA`,
         sheet: 'Registro',
     })
+
+
+    
     
   return (
     <HStack
@@ -150,7 +161,8 @@ export const TableStudents: FC<TableStudentsProps> = ({
                                     gap={2}
                                     justifyContent={'center'}
                                 >
-                                    <FormStudent edit={true} icon={true} id={id_student}/>
+
+                                    <FormStudent edit={true} icon={true} id={id_student} />
 
                                     <DeleteModal
                                         color={'red'}
@@ -162,6 +174,26 @@ export const TableStudents: FC<TableStudentsProps> = ({
                                         name={name}
                                         text={'Eliminar alumno'}
                                     />
+
+                                    {/* <IconButton
+                                        color={'brand.clonika.blue.800'}
+                                        _hover={{
+                                            cursor: 'pointer'
+                                        }}
+                                        aria-label='edit sale'
+                                        icon={<LiaEdit fontSize={25}/>}
+                                        onClick={handleClic}
+                                    /> */}
+
+                                    {/* <IconButton
+                                        color={'red'} 
+                                        _hover={{
+                                            cursor: 'pointer'
+                                        }}
+                                        aria-label='delete sale'
+                                        icon={<LiaTrashSolid fontSize={25}/>}
+                                        // 
+                                    /> */}
                                 </HStack>
                             </Td>
                         </Tr>
