@@ -29,6 +29,7 @@ import { STUDENT } from '../interfaces';
 import { DocumentationForm, PersonalInformationForm, ArtisticReference } from '../form';
 import { customDateRevert, transformData, trueOrFalse } from '@/helpers';
 import { LiaEdit } from 'react-icons/lia';
+import { useAppContext } from '@/context';
 
 interface Props {
     icon?             : boolean;
@@ -38,7 +39,7 @@ interface Props {
 
 export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
 
-    console.log("me ejecuto")
+    const {isOpen: isContextOpenModal} = useAppContext();
 
     const [initialValues, setInitialValues] = useState<STUDENT>(INITIALVALUES);    
 
@@ -85,6 +86,12 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
         }
 
     }, [id_student, edit, onOpen]);
+
+    useEffect(() => {
+        if(isContextOpenModal === true) {
+            onOpen();
+        }
+    }, [isContextOpenModal, onOpen]);
 
     useEffect(() => {
         if(!id_student) closeModal();

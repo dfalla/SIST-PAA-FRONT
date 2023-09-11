@@ -1,7 +1,21 @@
-import { Grid, GridItem, Box } from "@chakra-ui/react";
-import { HEADS, useGetAllSchedules } from "..";
+import {
+  Box,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Button,
+  HStack,
+  TableCaption,
+} from '@chakra-ui/react'
+import { FormSchedule, HEADS, useGetAllSchedules } from "..";
 
 type SCHEDULE = {
+  id_schedule: string;
+  hour: string;
   monday: string,
   tuesday: string,
   wednesday: string,
@@ -10,138 +24,77 @@ type SCHEDULE = {
   saturday: string,
 }
 
-const initialValuesSchedules: SCHEDULE = {
-  monday: '',
-  tuesday: '',
-  wednesday: '',
-  thursday: '',
-  friday: '',
-  saturday: '',
-}
-
 export const Schedules = () => {
-
-
-  const { data: data5pm } = useGetAllSchedules('5pm');
-  let newData5pm = initialValuesSchedules;
-  
-  
-  if(data5pm !== undefined) {
-    delete data5pm[0].id_schedule;
-    newData5pm = {
-      ...data5pm[0]
-    }
-  }
-
-  const { data: data6pm } = useGetAllSchedules('6pm');
-
-  let newData6pm = initialValuesSchedules;
-  
-  if(data6pm !== undefined) {
-    delete data6pm[0].id_schedule;
-    newData6pm = {
-      ...data6pm[0]
-    }
-  }
-
-
-  const { data: data7pm } = useGetAllSchedules('7pm');
-
-  let newData7pm = initialValuesSchedules;
-  
-  if(data7pm !== undefined) {
-    delete data7pm[0].id_schedule;
-    newData7pm = {
-      ...data7pm[0]
-    }
-  }
-  const { data: data8pm } = useGetAllSchedules('8pm');
-
-  let newData8pm = initialValuesSchedules;
-  
-  if(data8pm !== undefined) {
-    delete data8pm[0].id_schedule;
-    newData8pm = {
-      ...data8pm[0]
-    }
-  }
-  const { data: data9pm } = useGetAllSchedules('9pm');
-
-  let newData9pm = initialValuesSchedules;
-  
-  if(data9pm !== undefined) {
-    delete data9pm[0].id_schedule;
-    newData9pm = {
-      ...data9pm[0]
-    }
-  }
-  const { data: data10pm } = useGetAllSchedules('10pm');
-
-  let newData10pm = initialValuesSchedules;
-  
-  if(data10pm !== undefined) {
-    delete data10pm[0].id_schedule;
-    newData10pm = {
-      ...data10pm[0]
-    }
-  }
+  const { data: schedules } = useGetAllSchedules();
 
   return (
     <Box margin={30}>
-     <Grid templateColumns='repeat(7, 1fr)' gap={6}>
-      {
-        HEADS.map((element)=>(
-          <GridItem 
-            key={element} 
-            w='100%' 
-            h='10' 
-            bg='black' 
-            textAlign={'center'} 
-            color={'white'}
-            
-          >
-            {element}
-          </GridItem>
-        ))
-      }
-      <GridItem w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>5 P.M</GridItem>
-      {
-        Object.values(newData5pm).map((schedule, index)=>(
-          <GridItem key={index} w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>{schedule}</GridItem>
-        ))
-      }
-      <GridItem w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>6 P.M</GridItem>
-      {
-        Object.values(newData6pm).map((schedule, index)=>(
-          <GridItem key={index} w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>{schedule}</GridItem>
-        ))
-      }
-      <GridItem w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>7 P.M</GridItem>
-      {
-        Object.values(newData7pm).map((schedule, index)=>(
-          <GridItem key={index} w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>{schedule}</GridItem>
-        ))
-      }
-      <GridItem w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>8 P.M</GridItem>
-      {
-        Object.values(newData8pm).map((schedule, index)=>(
-          <GridItem key={index} w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>{schedule}</GridItem>
-        ))
-      }
-      <GridItem w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>9 P.M</GridItem>
-      {
-        Object.values(newData9pm).map((schedule, index)=>(
-          <GridItem key={index} w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>{schedule}</GridItem>
-        ))
-      }
-      <GridItem w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>10 P.M</GridItem>
-      {
-        Object.values(newData10pm).map((schedule, index)=>(
-          <GridItem key={index} w='100%' h='10' bg='blue.500' textAlign={'center'} color={'white'}>{schedule}</GridItem>
-        ))
-      }
-      
-    </Grid>
+     <TableContainer>
+        <Table variant='striped' colorScheme='teal' size={'md'}>
+          <TableCaption placement='top' pl={0} >
+            <HStack
+              justifyContent={'space-between'}
+            >
+              <Box
+              >
+                <FormSchedule/>
+              </Box>
+              <Box>Horario de ensayos 2023</Box>
+              <Box></Box>
+            </HStack>
+          </TableCaption>
+          <Thead>
+            <Tr>
+              {
+                HEADS.map((head, index)=>(
+                  <Th key={index} bg={'black'} color={'white'}>{head}</Th>
+                ))
+              }
+            </Tr>
+          </Thead>
+          <Tbody>
+              {
+                schedules !== undefined && schedules.map(({ 
+                  id_schedule,
+                  hour,
+                  monday,
+                  tuesday,
+                  wednesday,
+                  thursday,
+                  friday,
+                  saturday
+                 }: SCHEDULE)=>(
+                  <Tr key={id_schedule}>
+                    <Td>{hour}</Td>
+                    <Td>{monday}</Td>
+                    <Td>{tuesday}</Td>
+                    <Td>{wednesday}</Td>
+                    <Td>{thursday}</Td>
+                    <Td>{friday}</Td>
+                    <Td>{saturday}</Td>
+                    <Td>
+                      <HStack
+                        gap={2}
+                        justifyContent={'center'}
+                      >
+                        <Button
+                          bg={'blue'}
+                        >
+                          Editar
+                        </Button>
+                        <Button
+                          bg={'red'}
+                        >
+                          Eliminar
+                        </Button>
+                      </HStack>
+                    </Td>
+                  </Tr>
+                ))
+              }
+          </Tbody>
+        </Table>
+      </TableContainer>
     </Box>
   )
 }

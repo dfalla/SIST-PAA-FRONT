@@ -5,9 +5,9 @@ import Http from "@/libs";
 
 const URL = FEATURES.schedule;
 
-export const getSchedules = async(filter: string) => {
+export const getSchedules = async() => {
     try {
-        const { data } = await Http.get(`/${URL}?schedule=${filter}`)
+        const { data } = await Http.get(`/${URL}`)
         
         return data!.schedules
 

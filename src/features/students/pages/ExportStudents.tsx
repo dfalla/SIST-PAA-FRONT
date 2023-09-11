@@ -19,7 +19,11 @@ const HEADS: string[] = [
   'ACCIONES'
 ]
 
-export const ExportStudents = () => {
+interface Props {
+  edit?: boolean | undefined;
+}
+
+export const ExportStudents = ({edit}:Props) => {
   const { filters } = useAppContext();
   const { data } = useGetAllStudents(filters);
 

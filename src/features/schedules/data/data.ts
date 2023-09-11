@@ -5,5 +5,6 @@ export const HEADS: string[] = [
     'MIÉRCOLES',
     'JUEVES',
     'VIERNES',
-    'SÁBADO'
+    'SÁBADO',
+    'ACCIONES'
   ]

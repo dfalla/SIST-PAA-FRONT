@@ -21,6 +21,7 @@ export const App = () => {
               <Route path="/schedules" element={<Schedules/>} />
 
               <Route path="/students/:id_student" element={<AllStudents edit={true}/>} />
+              <Route path="/students/export/:id_student" element={<ExportStudents edit={true}/>} />
 
             </Route>
 

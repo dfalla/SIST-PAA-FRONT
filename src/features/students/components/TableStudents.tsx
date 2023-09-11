@@ -61,9 +61,6 @@ export const TableStudents: FC<TableStudentsProps> = ({
         filename: `Alumnos PAA`,
         sheet: 'Registro',
     })
-
-
-    
     
   return (
     <HStack

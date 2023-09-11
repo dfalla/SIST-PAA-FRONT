@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, createContext, memo, useState } from 'react';
+import { Dispatch, SetStateAction, createContext, memo, useEffect, useState } from 'react';
 import { SafeAny } from '@/common';
 import { Filters } from '@/interfaces';
 interface AppContextProps {
@@ -20,8 +20,11 @@ export const AppProvider: React.FC<SafeAny> = memo(( {children} ) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
+    useEffect(() => {
+        console.log("isOpen", isOpen)
+    }, [isOpen]);
+
     const openModal =()=>{
-        console.log("abrir modal")
         setIsOpen(true);
     }
 

@@ -3,12 +3,10 @@ import { FEATURES } from "@/constants";
 import { useQuery } from "@tanstack/react-query";
 
 
-export const useGetAllSchedules = (filter?: string) => {
+export const useGetAllSchedules = () => {
     const { data, isLoading, isError } = useQuery({ 
-        queryKey: [`${FEATURES.schedule}`, {
-          filters: filter
-        }],
-        queryFn: () => getSchedules(filter!),
+        queryKey: [`${FEATURES.schedule}`],
+        queryFn: getSchedules,
       })
   return {
     data, 
