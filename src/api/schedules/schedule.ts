@@ -27,15 +27,17 @@ export const geScheduleById = async(id_schedule: string) =>{
 }
 
 export const createSchedule = async( values: Schedule) => {
-    const formData = new FormData();
 
-    for(const key in values){
-        formData.append(key, (values as SafeAny)[key]);
-    }
+    console.log("values", values);
+    // const formData = new FormData();
+
+    // for(const key in values){
+    //     formData.append(key, (values as SafeAny)[key]);
+    // }
 
     try {
-       const {data }= await Http.post(`/${URL}`, formData)
-       return data;
+    //    const {data }= await Http.post(`/${URL}`, formData)
+    //    return data;
 
     } catch (error) {
         console.log("error", error)

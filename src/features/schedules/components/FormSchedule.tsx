@@ -1,3 +1,4 @@
+import { Schedule } from '@/interfaces';
 import {
     Modal,
     ModalOverlay,
@@ -11,10 +12,17 @@ import {
   } from '@chakra-ui/react'
 
 
+  import { Formik, Form } from 'formik';
+import { useState } from 'react';
+import { INITIALVALUES } from '../domain';
+
+
 
 export const FormSchedule = () => {
   
     const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const [initialValues, setInitialValues] = useState<Schedule>(INITIALVALUES); 
   return (
     <>
       <Button onClick={onOpen} bg={'blue'}>Crear Horario</Button>
@@ -29,6 +37,21 @@ export const FormSchedule = () => {
           <ModalHeader>Crea horario de ensayo</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            <Formik
+              initialValues={initialValues}
+              onSubmit={(values)=>{
+                console.log("values", values)
+              }}
+              enableReinitialize = {true}
+            >
+              {
+                ()=>(
+                  <Form>
+                    
+                  </Form>
+                )
+              }
+            </Formik>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={onClose}>

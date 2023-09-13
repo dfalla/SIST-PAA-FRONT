@@ -27,7 +27,7 @@ export interface Schedule{
     thursday?  : string;
     friday?    : string;
     saturday?  : string;
-    schedule   : string
+    hour   : string
 }
 
 export interface UpdateScheduleArgs{

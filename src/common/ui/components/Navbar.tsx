@@ -67,9 +67,14 @@ const Links: Array<LinkItemProps> = [
         path: '/students/all'
       },
       {
+        title: 'Grupos de Alumnos',
+        path: '/students/groups'
+      }, 
+      {
         title: 'Exportar Alumnos',
         path: '/students/export'
-      } 
+      },
+      
     ]
   },
   { 
@@ -80,21 +85,10 @@ const Links: Array<LinkItemProps> = [
     name: 'Pagos', 
     path: '/pays', 
   },
-  { 
+  {
     name: 'Préstamos', 
-    path: '/money-to-rent',
-    subContent: [
-      {
-        title: 'Préstamos hechos',
-        path: '/money-to-rent/delivered'
-      },
-      {
-        title: 'Registro de pagos',
-        path: '/money-to-rent/register'
-      } 
-    ]
-  }
-  
+    path: '/money-to-rent', 
+  },
 ]
   
 const Navigation = ({ children, path}: Props) => {
