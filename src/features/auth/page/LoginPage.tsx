@@ -49,7 +49,7 @@ export const LoginPage = ()=> {
           const profile = await loginRquest({username, password})
 
           setToken(profile.token)
-          setProfile({name: profile.name, lastName: profile.lastName})
+          setProfile({name: profile.name, lastName: profile.last_name, image: profile.image, role: profile.role})
           
           navigate("/");
 

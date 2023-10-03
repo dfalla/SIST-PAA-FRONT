@@ -1,10 +1,10 @@
+import { FC } from 'react';
 import {
     VStack,
     HStack,
     Heading,
 } from '@chakra-ui/react';
 import { OptionsProps, STUDENT } from '../interfaces';
-import { FC } from 'react';
 import { InputField, SelectField } from '@/common';
 
 interface PropsDocumentation{
@@ -31,7 +31,7 @@ export const DocumentationForm:FC<PropsDocumentation> = ({values}) => {
             <HStack>
                 
                 <SelectField name='type_document' label="Doc. de identidad" options={optionsDocumentation}/>
-                
+               
                 <InputField
                     name='document_number'
                     label='Número de documento'

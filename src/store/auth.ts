@@ -6,6 +6,8 @@ import { SafeAny } from "../common";
 export interface Profile {
     name?: string;
     lastName?: string;
+    role?: string;
+    image?: string;
 }
 
 type State = {

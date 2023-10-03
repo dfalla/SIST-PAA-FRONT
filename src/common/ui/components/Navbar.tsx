@@ -134,7 +134,8 @@ export const Navbar = ({ children }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const logout = useAuthStore((state)=> state.logout)
   const profile = useAuthStore((state)=>state.profile);
-  const { name, lastName } = profile;
+  const { name, lastName, role, image } = profile;
+  console.log("role", role)
   return (
     <>
       <Box bg={'#f1dbe5'} px={4}>
@@ -210,9 +211,7 @@ export const Navbar = ({ children }: Props) => {
                 <HStack>
                   <Avatar
                     size={'sm'}
-                    src={
-                      'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                    }
+                    src={ image }
                   />
                   <VStack
                     display={{ base: 'none', md: 'flex' }}
@@ -222,7 +221,7 @@ export const Navbar = ({ children }: Props) => {
                   >
                     <Text fontSize="sm" color={'black'}>{`${name} ${lastName}`}</Text>
                     <Text fontSize="xs" color="gray.600">
-                        SuperAdmin
+                        {role}
                     </Text>
                   </VStack>
                 </HStack>

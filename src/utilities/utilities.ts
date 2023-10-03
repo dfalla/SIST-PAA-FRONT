@@ -1,14 +1,26 @@
 import { loginRequest } from "@/api";
-import { InitialValues } from "@/interfaces";
+import { InitialValues, Option } from "@/interfaces";
+import Http from "@/libs";
 
 export const loginRquest = async ({username, password}: InitialValues) =>{
     const data = await loginRequest({username, password});
-    const {id_user, name, lastName, token, msg} = data;
+    const {user_id, name, last_name, token, msg, role, image} = data;
     return {
-        id_user,
+        user_id,
         name,
-        lastName,
+        last_name,
         token,
+        image,
+        role,
         msg
     }
 }
+
+export const fetchChildOptions = async (parentValue: string): Promise<Option[]> => {
+
+    const { data } = await Http.get(`/${parentValue}`)
+    
+    return data;
+
+
+};

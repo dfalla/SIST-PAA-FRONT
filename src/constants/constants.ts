@@ -1,6 +1,7 @@
 export const FEATURES = {
     students                : 'students',
-    schedule                : 'schedule'
+    schedule                : 'schedule',
+    typeDocument            : 'types-document'
 }
 
 export const AUTH = {

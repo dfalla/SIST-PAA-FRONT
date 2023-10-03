@@ -46,3 +46,8 @@ export interface Filters {
     category?       : string
     date_admission? : string;
 }
+
+export interface Option {
+    id: string;
+    value: string;
+}
