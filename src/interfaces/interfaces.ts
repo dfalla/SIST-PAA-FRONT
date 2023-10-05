@@ -20,6 +20,14 @@ export interface Student{
      
 }
 
+export interface GROUPS{
+    student_id                : string;
+    student_name              : string;
+    student_last_name         : string;
+    student_document_number   : string;
+    group_name                : string;
+}
+
 export interface Schedule{
     monday?    : string;
     tuesday?   : string;

@@ -1,7 +1,15 @@
 export const FEATURES = {
     students                : 'students',
     schedule                : 'schedule',
-    typeDocument            : 'types-document'
+    typeDocument            : 'types-document',
+    group                   : {
+        g1nb  : 'g1nb',
+        g2nb  : 'g2nb',
+        g3nb  : 'g3nb',
+        g4nb  : 'g4nb',
+        gab   : 'gab',
+        gi    : 'gi',
+    }
 }
 
 export const AUTH = {
