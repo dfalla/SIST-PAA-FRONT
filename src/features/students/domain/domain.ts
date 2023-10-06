@@ -16,6 +16,7 @@ export const INITIALVALUES: STUDENT = {
   category: '',
   active: false,
   level: '',
+  group_level: '',
   amount_payable: 0,
 }
 
@@ -58,5 +59,6 @@ export const ArtisticReferencevalidationSchema = Yup.object({
   address: Yup.string(),
   category: Yup.string().required('Debes seleccionar una categoría'),
   level: Yup.string().required('Debes seleccionar el nivel del aulmno'),
+  group_level: Yup.string().required('Debes seleccionar el grupo donde pertenecerá el alumno'),
   amount_payable: Yup.number().required('Este campo es requerido').max(80, 'El monto no debe de pasarse los S/.80'),
 })

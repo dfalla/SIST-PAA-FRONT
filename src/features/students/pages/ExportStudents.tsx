@@ -14,6 +14,7 @@ const HEADS: string[] = [
   'INGRESO',
   'CAT.',
   'NIVEL',
+  'Grupo',
   'PAGO',
   'ACTIVO',
   'ACCIONES'
@@ -26,6 +27,7 @@ interface Props {
 export const ExportStudents = ({edit}:Props) => {
   const { filters } = useAppContext();
   const { data } = useGetAllStudents(filters);
+  console.log("data en export students", data);
 
   return (
 

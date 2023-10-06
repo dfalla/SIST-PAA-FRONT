@@ -15,7 +15,7 @@ export const AppContext = createContext<AppContextProps | undefined>(undefined);
 export const AppProvider: React.FC<SafeAny> = memo(( {children} ) => {
 
     const [filters, setFilters] = useState<Filters>({
-        active: 'true',
+        active: 'si',
     });
 
     const [isOpen, setIsOpen] = useState(false);

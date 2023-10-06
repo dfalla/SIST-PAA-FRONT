@@ -23,8 +23,6 @@ export const AllStudents: FC<Props> = ({ edit }) => {
   const { data } = useGetAllStudents();
 
   const [filteredData, setFilteredData] = useState<Item[]>(data);
-  
-
 
   let childrenArr: Item[] = []
   let youthsArr: Item[] = []
@@ -34,7 +32,7 @@ export const AllStudents: FC<Props> = ({ edit }) => {
 
 
   if(filteredData !== undefined) {
-    salary = data!.filter((student: STUDENT)=>student.active === 'true').reduce((acumulator: number, element: STUDENT) => acumulator + element.amount_payable, 0)
+    salary = data!.filter((student: STUDENT)=>student.active === 'si').reduce((acumulator: number, element: STUDENT) => acumulator + element.amount_payable, 0)
 
     const { adults, children, youths} = orderDataForHoursRegistred(filteredData)
     childrenArr = children;
@@ -42,7 +40,6 @@ export const AllStudents: FC<Props> = ({ edit }) => {
     adultsArr = adults;
   }
   
-
   return (
     <>
       <Box bg={'brand.clonika.blue.800'} padding={4} minHeight={'90vh'}>
@@ -83,10 +80,10 @@ export const AllStudents: FC<Props> = ({ edit }) => {
             <AccordionPanel pb={4}>
               <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
                   {
-                    childrenArr.map(({image, last_name, mother_last_name, name, id_student }: Item) => (
+                    childrenArr.map(({image, last_name, mother_last_name, name, student_id }: Item) => (
                       <CardStudent 
-                        key={id_student}
-                        id_student={ id_student }
+                        key={student_id}
+                        id_student={ student_id }
                         image={ image }
                         last_name={last_name}
                         mother_last_name={mother_last_name}
@@ -110,10 +107,10 @@ export const AllStudents: FC<Props> = ({ edit }) => {
             <AccordionPanel pb={4}>
               <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
                   {
-                    youthsArr.map(({image, last_name, mother_last_name, name, id_student }: Item) => (
+                    youthsArr.map(({image, last_name, mother_last_name, name, student_id }: Item) => (
                       <CardStudent 
-                        key={id_student}
-                        id_student={ id_student }
+                        key={student_id}
+                        id_student={ student_id }
                         image={ image }
                         last_name={last_name}
                         mother_last_name={mother_last_name}
@@ -137,10 +134,10 @@ export const AllStudents: FC<Props> = ({ edit }) => {
             <AccordionPanel pb={4}>
               <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
                   {
-                    adultsArr.map(({image, last_name, mother_last_name, name, id_student }: Item) => (
+                    adultsArr.map(({image, last_name, mother_last_name, name, student_id }: Item) => (
                       <CardStudent 
-                        key={id_student}
-                        id_student={ id_student }
+                        key={student_id}
+                        id_student={ student_id }
                         image={ image }
                         last_name={last_name}
                         mother_last_name={mother_last_name}

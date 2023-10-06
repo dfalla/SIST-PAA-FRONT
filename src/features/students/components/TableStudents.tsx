@@ -122,7 +122,8 @@ export const TableStudents: FC<TableStudentsProps> = ({
                             date_admission, 
                             document_number, 
                             last_name, 
-                            level, 
+                            level,
+                            group_level, 
                             mother_last_name,
                             name, 
                             phone_number,
@@ -147,10 +148,12 @@ export const TableStudents: FC<TableStudentsProps> = ({
                             <Td textAlign={'start'}>{date_admission}</Td>
                             <Td textAlign={'start'}>{category}</Td>
                             <Td textAlign={'start'}>{level}</Td>
+                            <Td textAlign={'start'}>{group_level}</Td>
+
                             <Td textAlign={'start'}>{amount_payable}</Td>
                             <Td textAlign={'start'}>
                                 {
-                                    active === 'true' ? (<BiCheckCircle color={'green'}/>) : (<RiCloseCircleLine color={'red'}/>) 
+                                    active === 'si' ? (<BiCheckCircle color={'green'}/>) : (<RiCloseCircleLine color={'red'}/>) 
                                 }
                             </Td>
                             <Td>

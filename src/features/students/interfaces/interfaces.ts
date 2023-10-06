@@ -1,5 +1,5 @@
 export interface Item{
-    id_student: string;
+    student_id: string;
     name: string;
     last_name: string;
     mother_last_name: string;
@@ -32,6 +32,7 @@ export interface STUDENT {
     category: string;
     active: boolean | string;
     level: string; 
+    group_level: string;
     amount_payable: number;
     times_created?: number;
 }

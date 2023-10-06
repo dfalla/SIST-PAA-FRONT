@@ -4,7 +4,7 @@ import {
     HStack,
 } from '@chakra-ui/react';
 import { InputField, SelectField, SwitchField } from '@/common';
-import { optionsCategory, optionsLevel } from '..';
+import { optionsCategory, optionsGroupLevels, optionsLevel } from '..';
 
 export const ArtisticReference = ({isChecked}: {isChecked:string | boolean})=> {
     return(
@@ -14,6 +14,7 @@ export const ArtisticReference = ({isChecked}: {isChecked:string | boolean})=> {
         </Heading>
             <SelectField name='category' label="Categoría" options={optionsCategory}/>
             <SelectField name='level' label="Nivel" options={optionsLevel}/>
+            <SelectField name='group_level' label="Grupo" options={optionsGroupLevels}/>
             <HStack justifyContent={"space-between"} alignItems={'flex-start'} alignSelf={'flex-start'}>
                 <InputField
                     name='amount_payable'

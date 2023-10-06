@@ -29,3 +29,30 @@ export const optionsLevel: OptionsProps[] = [
         value: 'avanzado'
     },
 ]
+
+export const optionsGroupLevels: OptionsProps[] = [
+    {
+        label: 'G1NB',
+        value: 'G1NB'
+    },
+    {
+        label: 'G2NB',
+        value: 'G2NB'
+    },
+    {
+        label: 'G3NB',
+        value: 'G3NB'
+    },
+    {
+        label: 'G4NB',
+        value: 'G4NB'
+    },
+    {
+        label: 'GAB',
+        value: 'GAB'
+    },
+    {
+        label: 'GI',
+        value: 'GI'
+    },
+]

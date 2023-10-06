@@ -18,21 +18,21 @@ export const transformData = (values:STUDENT) => {
 
 
 export const trueOrFalse = (value: string) => {
-  if(value === 'false'){
+  if(value === 'no'){
     return false;
   }
 
-  if(value === 'true'){
+  if(value === 'si'){
     return true;
   }
 }
 
 export const convertStringTrueOrFalse = (value: boolean | string) => {
   if(value === false){
-    return 'false';
+    return 'no';
   }
 
   if(value === true){
-    return 'true';
+    return 'si';
   }
 }

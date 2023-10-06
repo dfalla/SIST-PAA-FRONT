@@ -111,6 +111,7 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
                 document_number: data.document_number,
                 category: data.category,
                 level:data.level,
+                group_level: data.group_level,
                 amount_payable: data.amount_payable,
                 active: trueOrFalse(data.active)!,
                 date_admission: customDateRevert(data.date_admission),

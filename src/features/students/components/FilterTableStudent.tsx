@@ -14,7 +14,7 @@ import {
     VStack,
 } from '@chakra-ui/react'
 import { Formik, Form } from 'formik';
-import { optionsCategory, optionsLevel } from '..';
+import { optionsCategory, optionsGroupLevels, optionsLevel } from '..';
 import { InputField, SelectField, SwitchField } from '@/common';
 import moment from 'moment';
 import { convertStringTrueOrFalse } from '@/helpers';
@@ -25,6 +25,7 @@ interface FilterArgsState{
     date_admission: string;
     category: string;
     level: string;
+    group_level: string;
     active: boolean | string;
 }
 
@@ -33,6 +34,7 @@ const initialValues: FilterArgsState = {
     date_admission: '',
     category: '',
     level: '',
+    group_level: '',
     active: true,
 }
 
@@ -61,59 +63,7 @@ export const FilterTableStudent = () => {
 
         setFilters(valuesFilter);
 
-        // const filteredItems = data.filter((item) => 
-        //     {
-
-        //         if(valuesFilter.active === false){
-
-        //             if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length > 0){
-        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level && item.date_admission === valuesFilter.date_admission
-        //             }
-        //             if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length === 0) {
-        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level;
-        //             } 
-        //             if(valuesFilter.category.length > 0 && valuesFilter.level.length === 0 && valuesFilter.date_admission.length === 0) {
-        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category;
-        //             } 
-        //             if(valuesFilter.level.length > 0 && valuesFilter.category.length === 0 && valuesFilter.date_admission.length === 0) {
-        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.level === valuesFilter.level;
-        //             } 
-        //             if(valuesFilter.date_admission.length > 0 && valuesFilter.category.length === 0 && valuesFilter.level.length === 0) {
-        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.date_admission === valuesFilter.date_admission;
-        //             } 
-        //             return item.active === convertStringTrueOrFalse(valuesFilter.active)
-        //         } 
-
-        //         if(valuesFilter.active === true){
-
-        //             if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length > 0){
-        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level && item.date_admission === valuesFilter.date_admission
-        //             } 
-                    
-        //             if(valuesFilter.category.length > 0 && valuesFilter.level.length > 0 && valuesFilter.date_admission.length === 0) {
-        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.category === valuesFilter.category && item.level === valuesFilter.level
-        //             }
-                    
-        //             if(valuesFilter.date_admission.length > 0 && valuesFilter.category.length > 0 && valuesFilter.level.length === 0) {
-        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.date_admission === valuesFilter.date_admission && item.category === valuesFilter.category
-        //             }
-                    
-        //             if(valuesFilter.date_admission.length > 0 && valuesFilter.level.length > 0 && valuesFilter.category.length === 0) {
-        //                 return item.active === convertStringTrueOrFalse(valuesFilter.active) && item.date_admission === valuesFilter.date_admission && item.level === valuesFilter.level
-        //             }
-                    
-        //             if(valuesFilter.category.length > 0 || valuesFilter.level.length > 0 || valuesFilter.date_admission.length > 0) {
-        //                 return item.category === valuesFilter.category || item.level === valuesFilter.level || item.date_admission === valuesFilter.date_admission
-        //             } 
-
-        //             return item.active === convertStringTrueOrFalse(valuesFilter.active) 
-        //         } 
-
-        //     } 
         
-        // );
-
-        // setFilteredData(filteredItems);
         onClose();
     };
 
@@ -164,7 +114,7 @@ export const FilterTableStudent = () => {
                                         />
 
                                         <SelectField name='level' label="Nivel" options={optionsLevel}/>
-
+                                        <SelectField name='group_level' label="Grupo" options={optionsGroupLevels}/>
                                         <SelectField name='category' label="Categoría" options={optionsCategory}/>
                                        
                                         <SwitchField
