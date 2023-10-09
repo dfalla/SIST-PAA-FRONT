@@ -48,6 +48,14 @@ export const optionsGroupLevels: OptionsProps[] = [
         value: 'G4NB'
     },
     {
+        label: 'G5NB',
+        value: 'G5NB'
+    },
+    {
+        label: 'G6NB',
+        value: 'G6NB'
+    },
+    {
         label: 'GAB',
         value: 'GAB'
     },

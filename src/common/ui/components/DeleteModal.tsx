@@ -17,7 +17,7 @@ import { useDeleteStudent } from '@/features/students/hooks';
 
 interface Props {
     icon?            : boolean;
-    id_student       : string;
+    student_id       : string;
     msg              : string;
     name             : string;
     text             : string;
@@ -27,12 +27,12 @@ interface Props {
 }
 
 
-export const DeleteModal: FC<Props> = ({ last_name, mother_last_name, name, msg, color, id_student, text, icon }) => {
+export const DeleteModal: FC<Props> = ({ last_name, mother_last_name, name, msg, color, student_id, text, icon }) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { mutate } = useDeleteStudent();
-    const deleteStudent =(id_student: string)=> {
-        mutate(id_student)
+    const deleteStudent =(student_id: string)=> {
+        mutate(student_id)
     }
     return (
       <>
@@ -80,7 +80,7 @@ export const DeleteModal: FC<Props> = ({ last_name, mother_last_name, name, msg,
                  Cerrar
                 </Button>
                 <Button 
-                    onClick={()=>{ deleteStudent(id_student) }}
+                    onClick={()=>{ deleteStudent(student_id) }}
                     variant='ghost' 
                 >
                  Eliminar

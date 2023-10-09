@@ -30,12 +30,12 @@ import { DeleteModal } from "@/common";
 import { FiDownload } from "react-icons/fi";
 // import { LiaEdit, LiaTrashSolid } from "react-icons/lia";
 
-interface STUDENTS extends STUDENT {
-    id_student: string
-}
+// interface STUDENTS extends STUDENT {
+//     id_student: string
+// }
 
 interface TableStudentsProps {
-    data                  : STUDENTS[];
+    data                  : STUDENT[];
     colorScheme?          : string;
     variant               : string;
     title                 : string;
@@ -53,7 +53,6 @@ export const TableStudents: FC<TableStudentsProps> = ({
     variant,
     title, 
 }) => {
-
     const tableRef = useRef(null);
    
     const { onDownload } = useDownloadExcel({
@@ -113,7 +112,7 @@ export const TableStudents: FC<TableStudentsProps> = ({
                 <Tbody mb={20}>
                     {
                         data?.map(({
-                            id_student, 
+                            student_id, 
                             active, 
                             address, 
                             age, 
@@ -131,7 +130,7 @@ export const TableStudents: FC<TableStudentsProps> = ({
                         }) => (
                             
                         <Tr
-                            key={`${id_student}-${document_number}`}
+                            key={`${student_id}-${document_number}`}
                         >
                             <Td textAlign={'start'}>{name}</Td>
                             <Td textAlign={'start'}>{last_name}</Td>
@@ -162,38 +161,19 @@ export const TableStudents: FC<TableStudentsProps> = ({
                                     justifyContent={'center'}
                                 >
 
-                                    <FormStudent edit={true} icon={true} id={id_student} />
+                                    <FormStudent edit={true} icon={true} id={student_id} />
 
                                     <DeleteModal
-                                        color={'red'}
-                                        icon={true}
-                                        id_student={id_student!}
-                                        last_name={last_name}
-                                        mother_last_name={mother_last_name}
-                                        msg={'Estás seguro de eliminar al alumn@: '}
-                                        name={name}
-                                        text={'Eliminar alumno'}
+                                        color               =   {'red'}
+                                        icon                =   {true}
+                                        student_id          =   {student_id!}
+                                        last_name           =   {last_name}
+                                        mother_last_name    =   {mother_last_name}
+                                        msg                 =   {'Estás seguro de eliminar al alumn@: '}
+                                        name                =   {name}
+                                        text                =   {'Eliminar alumno'}
                                     />
 
-                                    {/* <IconButton
-                                        color={'brand.clonika.blue.800'}
-                                        _hover={{
-                                            cursor: 'pointer'
-                                        }}
-                                        aria-label='edit sale'
-                                        icon={<LiaEdit fontSize={25}/>}
-                                        onClick={handleClic}
-                                    /> */}
-
-                                    {/* <IconButton
-                                        color={'red'} 
-                                        _hover={{
-                                            cursor: 'pointer'
-                                        }}
-                                        aria-label='delete sale'
-                                        icon={<LiaTrashSolid fontSize={25}/>}
-                                        // 
-                                    /> */}
                                 </HStack>
                             </Td>
                         </Tr>

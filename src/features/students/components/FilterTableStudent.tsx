@@ -54,6 +54,7 @@ export const FilterTableStudent = () => {
   
     const handleFilter = (valuesFilter: FilterArgsState) => {
 
+
         if(valuesFilter.date_admission.length > 0){
             valuesFilter.date_admission = moment(valuesFilter.date_admission, "YYYY-MM-DD").format("DD/MM/YYYY");
         } 

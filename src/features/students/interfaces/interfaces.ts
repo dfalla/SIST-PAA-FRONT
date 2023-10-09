@@ -18,7 +18,7 @@ export interface Item{
 }
  
 export interface STUDENT {
-    id_student?: string;
+    student_id?: string;
     name: string;
     last_name: string;
     mother_last_name: string;

@@ -12,7 +12,7 @@ export const CardGroupStudent: FC<Args> = ({levelName}) => {
 
     students = data;
 
-    const newStudents = students?.filter((student: STUDENT) => student.group_level === levelName)
+    const newStudents = students?.filter((student: STUDENT) => student.group_level === levelName && student.active === 'si')
 
   return (
     <Card>
@@ -22,9 +22,9 @@ export const CardGroupStudent: FC<Args> = ({levelName}) => {
         <CardBody>
             <OrderedList>
                     {
-                        newStudents.map(({id_student, name, last_name})=>(
+                        newStudents?.map(({student_id, name, last_name})=>(
                             <ListItem 
-                                key={id_student}
+                                key={student_id}
                                 mb={3}    
                             >
                                 {name} {last_name}

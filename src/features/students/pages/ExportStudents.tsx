@@ -20,14 +20,11 @@ const HEADS: string[] = [
   'ACCIONES'
 ]
 
-interface Props {
-  edit?: boolean | undefined;
-}
 
-export const ExportStudents = ({edit}:Props) => {
+
+export const ExportStudents = () => {
   const { filters } = useAppContext();
   const { data } = useGetAllStudents(filters);
-  console.log("data en export students", data);
 
   return (
 
