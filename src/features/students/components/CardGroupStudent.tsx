@@ -1,29 +1,36 @@
-import { Button, Card, CardBody, CardHeader, HStack, Heading, ListItem, OrderedList } from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Heading, ListItem, OrderedList } from '@chakra-ui/react';
 import { FC } from 'react';
-import { useGetAllStudents } from '..';
-interface Data {
-    name: string;
-    last_name: string;
-}
+import { STUDENT, useGetAllStudents } from '..';
+
 interface Args {
-    name: string
-    data?: Data[]
+    levelName: string
 }
 
-export const CardGroupStudent: FC<Args> = ({name, data}) => {
-    const { data: Students } = useGetAllStudents();
-    console.log("Students", Students);
+export const CardGroupStudent: FC<Args> = ({levelName}) => {
+    let students: STUDENT[] = [];
+    const { data } = useGetAllStudents();
+
+    students = data;
+
+    const newStudents = students?.filter((student: STUDENT) => student.group_level === levelName)
+
   return (
     <Card>
         <CardHeader>
-            <Heading size='md' textAlign={'center'}> {name}</Heading>
+            <Heading size='md' textAlign={'center'}> {levelName}</Heading>
         </CardHeader>
         <CardBody>
-            <Button color={'black'} bg={'green'} mb={5}>ADD +</Button>
             <OrderedList>
-                <HStack justifyContent={'space-between'}>
-                    <ListItem>Daniel Falla</ListItem> <Button color={'black'} bg={'red'}>Eliminar</Button>
-                </HStack>
+                    {
+                        newStudents.map(({id_student, name, last_name})=>(
+                            <ListItem 
+                                key={id_student}
+                                mb={3}    
+                            >
+                                {name} {last_name}
+                            </ListItem>
+                        ))
+                    }
             </OrderedList>
         </CardBody>
     </Card>
