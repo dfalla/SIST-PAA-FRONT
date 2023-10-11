@@ -12,7 +12,7 @@ export const useAddStudent = () => {
       mutationFn: createStudent,
       onSuccess: async() =>{
         toast({
-          title: `${MESSAGES_NOTIFICATIONS.registred}`,
+          title: `${MESSAGES_NOTIFICATIONS.features.students.registred}`,
           status: 'success',
           duration: 1000,
           isClosable: true,

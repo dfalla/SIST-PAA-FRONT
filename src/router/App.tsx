@@ -23,7 +23,9 @@ export const App = () => {
               <Route path="/schedules" element={<Schedules/>} />
               <Route path="/money-to-rent" element={<Loans/>} />
 
-              <Route path="/students/:id_student" element={<AllStudents edit={true}/>} />
+              <Route path="/students/:id_student" element={<AllStudents edit={true}/>}/>
+              <Route path="/schedules/:id_schedule" element={<Schedules edit={true}/>}/>
+
 
             </Route>
 

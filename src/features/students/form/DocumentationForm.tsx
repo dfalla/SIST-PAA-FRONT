@@ -30,7 +30,7 @@ export const DocumentationForm:FC<PropsDocumentation> = ({values}) => {
             </Heading>
             <HStack>
                 
-                <SelectField name='type_document' label="Doc. de identidad" options={optionsDocumentation}/>
+                <SelectField name='type_document' label="Doc. de identidad" placeholder='Seleccione' options={optionsDocumentation}/>
                
                 <InputField
                     name='document_number'

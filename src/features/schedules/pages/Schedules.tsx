@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import {
   Box,
   Table,
@@ -11,11 +12,11 @@ import {
   HStack,
   TableCaption,
 } from '@chakra-ui/react'
-import { FormSchedule, HEADS, useGetAllSchedules } from "..";
+import { FormSchedule, HEADS, useDeleteSchedule, useGetAllSchedules } from "..";
 
 type SCHEDULE = {
-  id_schedule: string;
-  hour: string;
+  schedule_id: string;
+  hour: number;
   monday: string,
   tuesday: string,
   wednesday: string,
@@ -24,8 +25,28 @@ type SCHEDULE = {
   saturday: string,
 }
 
-export const Schedules = () => {
+type Props = {
+  edit? : boolean
+}
+
+export const Schedules: FC<Props> = ({edit}) => {
+
   const { data: schedules } = useGetAllSchedules();
+  const { mutate } = useDeleteSchedule()
+
+  if(schedules !== undefined) {
+
+    const dataOrdered = schedules.sort((a:SCHEDULE , b: SCHEDULE)=> a.hour - b.hour)
+  
+    console.log("dataOrdered", dataOrdered);
+
+  }
+
+
+  const deleteSchedule = (schedule_id: string) => {
+    mutate(schedule_id);
+  }
+
 
   return (
     <Box margin={30}>
@@ -37,7 +58,7 @@ export const Schedules = () => {
             >
               <Box
               >
-                <FormSchedule/>
+                <FormSchedule edit={ edit }/>
               </Box>
               <Box>Horario de ensayos 2023</Box>
               <Box></Box>
@@ -54,8 +75,8 @@ export const Schedules = () => {
           </Thead>
           <Tbody>
               {
-                schedules !== undefined && schedules.map(({ 
-                  id_schedule,
+                schedules !== undefined && schedules.sort((a:SCHEDULE , b: SCHEDULE)=> a.hour - b.hour).map(({ 
+                  schedule_id,
                   hour,
                   monday,
                   tuesday,
@@ -64,8 +85,8 @@ export const Schedules = () => {
                   friday,
                   saturday
                  }: SCHEDULE)=>(
-                  <Tr key={id_schedule}>
-                    <Td>{hour}</Td>
+                  <Tr key={schedule_id}>
+                    <Td>{hour}.p.m</Td>
                     <Td>{monday}</Td>
                     <Td>{tuesday}</Td>
                     <Td>{wednesday}</Td>
@@ -84,6 +105,7 @@ export const Schedules = () => {
                         </Button>
                         <Button
                           bg={'red'}
+                          onClick={()=>deleteSchedule(schedule_id)}
                         >
                           Eliminar
                         </Button>

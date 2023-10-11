@@ -10,7 +10,7 @@ interface Props {
     [x: string]: SafeAny;
 }
 
-export const SelectField = ({ label, options, ...props }: Props) => {
+export const SelectField = ({ label, options, placeholder, ...props }: Props) => {
 
     const [ field ] = useField(props);
 
@@ -21,7 +21,7 @@ export const SelectField = ({ label, options, ...props }: Props) => {
           {label}
         </Text>
       </FormLabel>
-      <Select id={props.name} {...field} {...props} placeholder={`Selecciona una opción`}>
+      <Select id={props.name} {...field} {...props} placeholder={`${placeholder!}`}>
         {options.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}

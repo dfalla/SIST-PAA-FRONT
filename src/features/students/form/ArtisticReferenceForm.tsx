@@ -12,9 +12,9 @@ export const ArtisticReference = ({isChecked}: {isChecked:string | boolean})=> {
         <Heading width={'100%'} textAlign={'center'} fontWeight={'normal'} mb="2%">
             Referencia Artística
         </Heading>
-            <SelectField name='category' label="Categoría" options={optionsCategory}/>
-            <SelectField name='level' label="Nivel" options={optionsLevel}/>
-            <SelectField name='group_level' label="Grupo" options={optionsGroupLevels}/>
+            <SelectField name='category' placeholder= 'Seleccione' label="Categoría" options={optionsCategory}/>
+            <SelectField name='level' placeholder= 'Seleccione' label="Nivel" options={optionsLevel}/>
+            <SelectField name='group_level' placeholder= 'Seleccione' label="Grupo" options={optionsGroupLevels}/>
             <HStack justifyContent={"space-between"} alignItems={'flex-start'} alignSelf={'flex-start'}>
                 <InputField
                     name='amount_payable'

@@ -18,7 +18,7 @@ export const useEditStudent = ({parameter}: {parameter: string, edit?: boolean})
       onSuccess: async(data) =>{
         queryClient.setQueryData([`${FEATURES.students}`, { id: parameter }], data)
         toast({
-          title: `${MESSAGES_NOTIFICATIONS.edited}`,
+          title: `${MESSAGES_NOTIFICATIONS.features.students.edited}`,
           status: 'success',
           duration: 3000,
           isClosable: true,

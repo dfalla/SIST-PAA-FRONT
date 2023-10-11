@@ -28,16 +28,15 @@ export const geScheduleById = async(id_schedule: string) =>{
 
 export const createSchedule = async( values: Schedule) => {
 
-    console.log("values", values);
-    // const formData = new FormData();
+    const formData = new FormData();
 
-    // for(const key in values){
-    //     formData.append(key, (values as SafeAny)[key]);
-    // }
+    for(const key in values){
+        formData.append(key, (values as SafeAny)[key]);
+    }
 
     try {
-    //    const {data }= await Http.post(`/${URL}`, formData)
-    //    return data;
+       const {data }= await Http.post(`/${URL}`, formData)
+       return data;
 
     } catch (error) {
         console.log("error", error)
@@ -60,9 +59,9 @@ export const updateSchedule = async({id_schedule, values} : UpdateScheduleArgs) 
     }
 }
 
-export const deleteSchedule = async(id_schedule: string) => {
+export const deleteSchedule = async(schedule_id: string) => {
     try {
-        await Http.delete(`/${URL}/${id_schedule}`);
+        await Http.delete(`/${URL}/${schedule_id}`);
     } catch (error) {
         console.log('error', error)
     }

@@ -8,28 +8,28 @@ export const useAddSchedule = () => {
     
     const toast = useToast();
   
-    const addStudent = useMutation({
+    const addSchedule = useMutation({
       mutationFn: createSchedule,
       onSuccess: async() =>{
         toast({
-          title: `${MESSAGES_NOTIFICATIONS.registred}`,
+          title: `${MESSAGES_NOTIFICATIONS.features.schedules.registred}`,
           status: 'success',
           duration: 1000,
           isClosable: true,
           position: 'top'
         })
         await queryClient.invalidateQueries({
-          queryKey: [`${FEATURES.students}`],  
+          queryKey: [`${FEATURES.schedule}`],  
           refetchType: 'active',
         })
       },
       onError: (error)=>{
-        console.log("error desde useAddStudent", error)
+        console.log("error desde useAddSchedule", error)
       }
     })
 
     return {
-      addStudent,
+      addSchedule,
     }
   }
   
