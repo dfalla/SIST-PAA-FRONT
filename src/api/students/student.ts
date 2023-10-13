@@ -54,7 +54,8 @@ export const updateStudent = async({id_student, values} : UpdateStudenttArgs) =>
     }
 
     try {
-        await Http.put(`/${URL}/${id_student}`, formData)
+       const { data } =  await Http.put(`/${URL}/${id_student}`, formData)
+       return data.msg;
     } catch (error) {
         console.log('error capturado 😤', error)
     }
@@ -62,7 +63,8 @@ export const updateStudent = async({id_student, values} : UpdateStudenttArgs) =>
 
 export const deleteStudent = async(id_student: string) => {
     try {
-        await Http.delete(`/${URL}/${id_student}`);
+        const { data } = await Http.delete(`/${URL}/${id_student}`);
+        return data;
     } catch (error) {
         console.log('error', error)
     }

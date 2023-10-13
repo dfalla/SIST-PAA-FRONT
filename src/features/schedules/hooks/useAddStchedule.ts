@@ -1,7 +1,7 @@
 import {  useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
 import { createSchedule } from '@/api';
-import { FEATURES, MESSAGES_NOTIFICATIONS } from '@/constants';
+import { FEATURES } from '@/constants';
 export const useAddSchedule = () => {
 
     const queryClient = useQueryClient(); 
@@ -10,10 +10,11 @@ export const useAddSchedule = () => {
   
     const addSchedule = useMutation({
       mutationFn: createSchedule,
-      onSuccess: async() =>{
+      
+      onSuccess: async(resp) =>{
         toast({
-          title: `${MESSAGES_NOTIFICATIONS.features.schedules.registred}`,
-          status: 'success',
+          title: resp.msg ? `${resp.msg}` : `${resp.response.data.msg}`,
+          status: resp.msg ? 'success' : 'error',
           duration: 1000,
           isClosable: true,
           position: 'top'

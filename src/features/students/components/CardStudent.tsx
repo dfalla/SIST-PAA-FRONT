@@ -19,7 +19,6 @@ export interface CardArgs{
 }
 
 export const CardStudent = ({id_student, image, last_name, mother_last_name, name}: CardArgs) => {
-  
   const navigate = useNavigate();
 
   const editStudent = (id_student: string) => {
@@ -93,7 +92,7 @@ export const CardStudent = ({id_student, image, last_name, mother_last_name, nam
         </Button>
         <DeleteModal
           color={'red'}
-          id_student={id_student}
+          student_id={id_student}
           last_name={last_name}
           mother_last_name={mother_last_name}
           msg={'Estás seguro de eliminar al alumn@: '}

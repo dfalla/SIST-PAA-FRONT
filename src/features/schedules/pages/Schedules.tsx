@@ -13,6 +13,7 @@ import {
   TableCaption,
 } from '@chakra-ui/react'
 import { FormSchedule, HEADS, useDeleteSchedule, useGetAllSchedules } from "..";
+import { useNavigate } from 'react-router-dom';
 
 type SCHEDULE = {
   schedule_id: string;
@@ -32,19 +33,16 @@ type Props = {
 export const Schedules: FC<Props> = ({edit}) => {
 
   const { data: schedules } = useGetAllSchedules();
+
   const { mutate } = useDeleteSchedule()
-
-  if(schedules !== undefined) {
-
-    const dataOrdered = schedules.sort((a:SCHEDULE , b: SCHEDULE)=> a.hour - b.hour)
-  
-    console.log("dataOrdered", dataOrdered);
-
-  }
-
+  const navigate = useNavigate();
 
   const deleteSchedule = (schedule_id: string) => {
     mutate(schedule_id);
+  }
+
+  const editSchedule = (schedule_id: string) => {
+    navigate(`/schedules/${schedule_id}`)
   }
 
 
@@ -100,6 +98,7 @@ export const Schedules: FC<Props> = ({edit}) => {
                       >
                         <Button
                           bg={'blue'}
+                          onClick={()=>editSchedule(schedule_id)}
                         >
                           Editar
                         </Button>

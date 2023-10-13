@@ -1,5 +1,5 @@
 import { deleteSchedule } from "@/api";
-import { FEATURES, MESSAGES_NOTIFICATIONS } from "@/constants";
+import { FEATURES } from "@/constants";
 import { useToast } from "@chakra-ui/react";
 import {  useMutation, useQueryClient } from "@tanstack/react-query"
 
@@ -11,9 +11,9 @@ export const useDeleteSchedule = () => {
   
     const { mutate } = useMutation({
       mutationFn: deleteSchedule,
-      onSuccess: async()=>{
+      onSuccess: async(resp)=>{
         toast({
-          title: `${MESSAGES_NOTIFICATIONS.features.schedules.deleted}`,
+          title: `${resp}`,
           status: 'success',
           duration: 1000,
           isClosable: true,

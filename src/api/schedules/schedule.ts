@@ -19,7 +19,8 @@ export const getSchedules = async() => {
 export const geScheduleById = async(id_schedule: string) =>{
     try {
         const { data } = await Http.get(`/${URL}/${id_schedule}`)
-        return data!.student;
+        // console.log("geScheduleById", data)
+        return data!.scheduleInBD;
         
     } catch (error) {
         console.log("error",error)
@@ -39,7 +40,6 @@ export const createSchedule = async( values: Schedule) => {
        return data;
 
     } catch (error) {
-        console.log("error", error)
         return error;
     }
 }
@@ -53,7 +53,8 @@ export const updateSchedule = async({id_schedule, values} : UpdateScheduleArgs) 
     }
 
     try {
-        await Http.put(`/${URL}/${id_schedule}`, formData)
+        const { data } = await Http.put(`/${URL}/${id_schedule}`, formData)
+        return data.msg;
     } catch (error) {
         console.log('error capturado 😤', error)
     }
@@ -61,7 +62,8 @@ export const updateSchedule = async({id_schedule, values} : UpdateScheduleArgs) 
 
 export const deleteSchedule = async(schedule_id: string) => {
     try {
-        await Http.delete(`/${URL}/${schedule_id}`);
+       const { data } =  await Http.delete(`/${URL}/${schedule_id}`);
+       return data.msg;
     } catch (error) {
         console.log('error', error)
     }

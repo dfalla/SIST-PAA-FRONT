@@ -22,6 +22,8 @@ interface Props {
 export const AllStudents: FC<Props> = ({ edit }) => {
   const { data } = useGetAllStudents();
 
+  console.log("useGetAllStudents", data);
+
   const [filteredData, setFilteredData] = useState<Item[]>(data);
 
   let childrenArr: Item[] = []

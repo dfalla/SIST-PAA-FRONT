@@ -135,7 +135,7 @@ export const Navbar = ({ children }: Props) => {
   const logout = useAuthStore((state)=> state.logout)
   const profile = useAuthStore((state)=>state.profile);
   const { name, lastName, role, image } = profile;
-  console.log("role", role)
+  
   return (
     <>
       <Box bg={'#f1dbe5'} px={4}>
