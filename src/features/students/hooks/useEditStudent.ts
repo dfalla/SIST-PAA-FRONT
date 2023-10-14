@@ -25,7 +25,7 @@ export const useEditStudent = ({parameter}: {parameter: string, edit?: boolean})
           position: 'top'
         })
         await queryClient.invalidateQueries({
-          queryKey: [`${FEATURES.students}`], 
+          queryKey: [`${FEATURES.students}`],
           refetchType: 'active',
         })
         

@@ -183,7 +183,7 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
                                     editStudent.mutate({id_student: id_student! || id!, values: valuesToSend})
                                 }
                                 resetForm();
-                                closeModal()
+                                closeModal();
                             }}
                             enableReinitialize={true}
                         >

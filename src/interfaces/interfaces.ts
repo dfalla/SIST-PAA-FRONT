@@ -1,3 +1,5 @@
+import { STUDENT } from "@/features";
+
 export interface LoginArgs {
     username: string;
     password: string;
@@ -16,9 +18,13 @@ export interface InitialValues{
     password: string;
 }
 
-export interface Student{
-     
-}
+// export interface STUDENT{
+//     name: string;
+//     last_name: string;
+//     mother_last_name: string;
+//     type_document:  string;
+//     num_document: string
+// }
 
 export interface GROUPS{
     student_id                : string;
@@ -45,7 +51,7 @@ export interface UpdateScheduleArgs{
 
 export interface UpdateStudenttArgs{
     id_student: string;
-    values: Student;
+    values: STUDENT;
 }
 
 export interface Filters {

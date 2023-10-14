@@ -15,7 +15,7 @@ export const useDeleteStudent = () => {
         toast({
           title: `${MESSAGES_NOTIFICATIONS.features.students.deleted}`,
           status: 'success',
-          duration: 1000,
+          duration: 3000,
           isClosable: true,
           position: 'top'
         })

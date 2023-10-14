@@ -1,11 +1,13 @@
 import { SafeAny } from "@/common";
 import { FEATURES } from "@/constants";
-import { Filters, Student, UpdateStudenttArgs } from "@/interfaces";
+import { STUDENT } from "@/features";
+import { Filters, UpdateStudenttArgs } from "@/interfaces";
 import Http from "@/libs";
 
 const URL = FEATURES.students;
 
 export const getStudents = async(filters?: Filters) => {
+    console.log("me ejecuto 😁")
     try {
 
         const { data } = await Http.get(`/${URL}`, {
@@ -28,7 +30,7 @@ export const geStudentById = async(id: string) =>{
     }
 }
 
-export const createStudent = async( values: Student) => {
+export const createStudent = async( values: STUDENT) => {
     const formData = new FormData();
 
     for(const key in values){
@@ -54,8 +56,7 @@ export const updateStudent = async({id_student, values} : UpdateStudenttArgs) =>
     }
 
     try {
-       const { data } =  await Http.put(`/${URL}/${id_student}`, formData)
-       return data.msg;
+        await Http.put(`/${URL}/${id_student}`, formData)
     } catch (error) {
         console.log('error capturado 😤', error)
     }

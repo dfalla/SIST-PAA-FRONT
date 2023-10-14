@@ -22,8 +22,6 @@ interface Props {
 export const AllStudents: FC<Props> = ({ edit }) => {
   const { data } = useGetAllStudents();
 
-  console.log("useGetAllStudents", data);
-
   const [filteredData, setFilteredData] = useState<Item[]>(data);
 
   let childrenArr: Item[] = []
@@ -59,7 +57,7 @@ export const AllStudents: FC<Props> = ({ edit }) => {
           <Filter data={data} setFilteredData={setFilteredData}/>
 
           <HStack gap={10}>
-          <FormStudent  edit={ edit }/>
+            <FormStudent  edit={ edit }/>
             <Box>
               <Text color={'white'}>
                Entrada:  S/.{salary}
