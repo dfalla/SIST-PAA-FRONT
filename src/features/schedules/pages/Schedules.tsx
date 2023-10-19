@@ -49,7 +49,7 @@ export const Schedules: FC<Props> = ({edit}) => {
   return (
     <Box margin={30}>
      <TableContainer>
-        <Table variant='striped' colorScheme='teal' size={'md'}>
+        <Table colorScheme='teal' size={'md'}>
           <TableCaption placement='top' pl={0} >
             <HStack
               justifyContent={'space-between'}
@@ -85,7 +85,7 @@ export const Schedules: FC<Props> = ({edit}) => {
                  }: SCHEDULE)=>(
                   <Tr key={schedule_id}>
                     <Td>{hour}.p.m</Td>
-                    <Td>{monday}</Td>
+                    <Td bg={'yellow'}>{monday}</Td>
                     <Td>{tuesday}</Td>
                     <Td>{wednesday}</Td>
                     <Td>{thursday}</Td>

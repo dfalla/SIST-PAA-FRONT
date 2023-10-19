@@ -114,9 +114,9 @@ export const FilterTableStudent = () => {
                                             type='date'
                                         />
 
-                                        <SelectField name='level' label="Nivel" options={optionsLevel}/>
-                                        <SelectField name='group_level' label="Grupo" options={optionsGroupLevels}/>
-                                        <SelectField name='category' label="Categoría" options={optionsCategory}/>
+                                        <SelectField name='level' label="Nivel" options={optionsLevel} placeholder='Seleccione'/>
+                                        <SelectField name='group_level' label="Grupo" options={optionsGroupLevels} placeholder='Seleccione'/>
+                                        <SelectField name='category' label="Categoría" options={optionsCategory} placeholder='Seleccione'/>
                                        
                                         <SwitchField
                                             name='active'

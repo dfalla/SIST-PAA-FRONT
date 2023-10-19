@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 
 import { Formik, Form } from 'formik';
-import { INITIALVALUES } from '../domain';
+import { INITIALVALUES, ScheduleValidationSchema } from '../domain';
 import { GROUPS, HOURS, useAddSchedule, useEditSchedule } from '..';
 import { SelectField } from '@/common';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -102,6 +102,7 @@ export const FormSchedule: FC<Props> = ({edit}) => {
                 closeModal();
               }}
               enableReinitialize = {true}
+              validationSchema={ScheduleValidationSchema}
             >
               {
                 ()=>(

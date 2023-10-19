@@ -16,6 +16,10 @@ export const HEADS: string[] = [
 
 export const HOURS: SCHEDULE[] = [
   {
+    label: '2 p.m.',
+    value: '2'
+  },
+  {
     label: '3 p.m.',
     value: '3'
   },
@@ -69,6 +73,10 @@ export const GROUPS: SCHEDULE[] = [
   {
     label: 'G5NB',
     value: 'G5NB'
+  },
+  {
+    label: 'GAB',
+    value: 'GAB'
   },
   {
     label: 'GI',

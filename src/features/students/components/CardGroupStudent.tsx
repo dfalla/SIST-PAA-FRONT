@@ -1,12 +1,13 @@
-import { Card, CardBody, CardHeader, Heading, ListItem, OrderedList } from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Heading, ListItem, OrderedList, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 import { STUDENT, useGetAllStudents } from '..';
 
 interface Args {
-    levelName: string
+    levelName: string;
+    schedule: string;
 }
 
-export const CardGroupStudent: FC<Args> = ({levelName}) => {
+export const CardGroupStudent: FC<Args> = ({levelName, schedule}) => {
     let students: STUDENT[] = [];
     const { data } = useGetAllStudents();
 
@@ -18,6 +19,7 @@ export const CardGroupStudent: FC<Args> = ({levelName}) => {
     <Card>
         <CardHeader>
             <Heading size='md' textAlign={'center'}> {levelName}</Heading>
+            <Text textAlign={'center'} fontWeight={40}>{schedule}</Text>
         </CardHeader>
         <CardBody>
             <OrderedList>
