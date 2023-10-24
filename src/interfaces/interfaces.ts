@@ -44,6 +44,14 @@ export interface Schedule{
     hour   : string
 }
 
+export interface Loan {
+    name: string;
+    last_name: string;
+    capital: number;
+    money_delivery_date: string;
+    active : boolean;
+}
+
 export interface UpdateScheduleArgs{
     id_schedule: string;
     values: Schedule;
@@ -59,6 +67,12 @@ export interface Filters {
     level?          : string;
     category?       : string
     date_admission? : string;
+}
+
+export interface FltersLoan {
+    name?: string;
+    last_name?: string;
+    money_delivery_date?: string;
 }
 
 export interface Option {

@@ -3,6 +3,7 @@ export const URL = {
 }
 
 export const FEATURES = {
+    loans                   : 'loans',
     students                : 'students',
     schedule                : 'schedule',
     typeDocument            : 'types-document',
