@@ -1,4 +1,4 @@
-import { getLoans } from "@/api";
+import { getAllLoans } from "@/api";
 import { FEATURES } from "@/constants";
 import { FltersLoan } from "@/interfaces";
 import { useQuery } from "@tanstack/react-query";
@@ -9,7 +9,7 @@ export const useGetAllLoans = (filters?: FltersLoan) => {
         queryKey: [`${FEATURES.loans}`, {
           filters: filters
         }],
-        queryFn: () => getLoans(filters),
+        queryFn: () => getAllLoans(filters),
       })
   return {
     data, 

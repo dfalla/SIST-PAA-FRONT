@@ -1,5 +1,6 @@
 import { STUDENT } from "@/features"
 import { customDate } from ".";
+import { Loan } from "@/interfaces";
 
 
 
@@ -34,5 +35,13 @@ export const convertStringTrueOrFalse = (value: boolean | string) => {
 
   if(value === true){
     return 'si';
+  }
+}
+
+export const dataToLoans = (values: Loan) => {
+  values.money_delivery_date = customDate(values.money_delivery_date);
+
+  return {
+    valuesToSend : values 
   }
 }

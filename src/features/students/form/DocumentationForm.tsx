@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { OptionsProps, STUDENT } from '../interfaces';
 import { InputField, SelectField } from '@/common';
+import { returnDateFormat } from '@/helpers';
 
 interface PropsDocumentation{
     values: STUDENT
@@ -23,6 +24,7 @@ const optionsDocumentation: OptionsProps[] = [
 ]
 
 export const DocumentationForm:FC<PropsDocumentation> = ({values}) => {
+    const today = returnDateFormat();
     return(
         <VStack gap={3}>
             <Heading width={'100%'} textAlign={'center'} fontWeight={'normal'} mb="2%">
@@ -30,26 +32,32 @@ export const DocumentationForm:FC<PropsDocumentation> = ({values}) => {
             </Heading>
             <HStack>
                 
-                <SelectField name='type_document' label="Doc. de identidad" placeholder='Seleccione' options={optionsDocumentation}/>
+                <SelectField 
+                    name        = 'type_document' 
+                    label       = "Doc. de identidad" 
+                    placeholder = 'Seleccione' 
+                    options     = {optionsDocumentation}
+                />
                
                 <InputField
-                    name='document_number'
-                    label='Número de documento'
-                    type='text'
-                    variant={'filled'}
-                    disabled={ !values.type_document }
+                    name    = 'document_number'
+                    label   = 'Número de documento'
+                    type    = 'text'
+                    variant = {'filled'}
+                    disabled= { !values.type_document }
                 />
             </HStack>
             <InputField
-                name='age'
-                label='Edad'
-                type='number'
-                variant={'filled'}
+                name    = 'age'
+                label   = 'Edad'
+                type    = 'number'
+                variant = {'filled'}
             />
             <InputField
-                name='date_admission'
-                label='Fecha de ingreso'
-                type='date'
+                name    = 'date_admission'
+                label   = 'Fecha de ingreso'
+                type    = 'date'
+                min     = { today } 
             />
         </VStack>
     )

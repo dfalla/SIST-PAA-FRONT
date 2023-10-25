@@ -1,4 +1,5 @@
 import { Item} from "@/features";
+import { NewLoans } from "@/interfaces";
 
 export const orderDataForHoursRegistred = (arr: Item[]) => {
     
@@ -13,4 +14,10 @@ export const orderDataForHoursRegistred = (arr: Item[]) => {
         adults
     }
 
+}
+
+export const orderLoans = (loans: NewLoans[]) => {
+    const orderLoans = loans.sort((a,b) => b.times_created - a.times_created);
+
+    return orderLoans;
 }

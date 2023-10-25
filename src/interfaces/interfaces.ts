@@ -49,7 +49,13 @@ export interface Loan {
     last_name: string;
     capital: number;
     money_delivery_date: string;
-    active : boolean;
+}
+
+export interface NewLoans extends Loan {
+    interest: number;
+    payment_date :string;
+    loan_id: string;
+    times_created: number;
 }
 
 export interface UpdateScheduleArgs{

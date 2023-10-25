@@ -12,12 +12,15 @@ import {
   useDisclosure,
   Button,
   HStack,
+  VStack,
 } from '@chakra-ui/react'
 
 import { Formik, Form } from 'formik';
 import { INITIALVALUES, LoanValidationSchema } from '../domain';
 import { useNavigate } from 'react-router-dom';
 import { useAddLoan } from '../hooks';
+import { InputField } from '@/common';
+import { dataToLoans, returnDateFormat } from '@/helpers';
 
 type Props = {
   edit? : boolean
@@ -30,11 +33,13 @@ export const FormLoan: FC<Props> = () => {
     const { addLoan } = useAddLoan();
     const navigate = useNavigate();
 
-    const [initialValues, setInitialValues] = useState<Loan>(INITIALVALUES); 
+    const today = returnDateFormat();
+
+    const [initialValues] = useState<Loan>(INITIALVALUES); 
 
     const closeModal = useCallback(() => {
       onClose();
-      navigate('/schedules')
+      // navigate('/loans')
   }, [onClose, navigate])
 
     useEffect(() => { 
@@ -44,7 +49,7 @@ export const FormLoan: FC<Props> = () => {
 
   return (
     <>
-      <Button onClick={onOpen} bg={'blue'}>Crear Horario</Button>
+      <Button onClick={onOpen} bg={'blue'}>Registrar préstamo</Button>
       <Modal
         isCentered
         onClose={onClose}
@@ -61,7 +66,8 @@ export const FormLoan: FC<Props> = () => {
             <Formik
               initialValues={initialValues}
               onSubmit={(values)=>{
-                addLoan.mutate(values)
+                const { valuesToSend }= dataToLoans(values);
+                addLoan.mutate(valuesToSend)
                 closeModal();
               }}
               enableReinitialize = {true}
@@ -70,7 +76,30 @@ export const FormLoan: FC<Props> = () => {
               {
                 ()=>(
                   <Form>
-                    
+                    <VStack>
+                      <InputField
+                        label        = 'Nombre' 
+                        name         = 'name' 
+                        placeholder  = 'Escribe el nombre' 
+                      />
+                      <InputField
+                        label        = 'Apellidos' 
+                        name         = 'last_name' 
+                        placeholder  = 'Escribe los apellidos' 
+                      />
+                      <InputField
+                        label        = 'Capital' 
+                        name         = 'capital' 
+                        placeholder  = 'Ingresa el monto'
+                        type         = 'number' 
+                      />
+                      <InputField
+                          label      = 'Fecha de entrega del dinero'
+                          name       = 'money_delivery_date'
+                          type       = 'date'
+                          min        = { today } 
+                      />
+                    </VStack>
                     <HStack mt={5} justifyContent={'space-between'}>
                       <Button colorScheme='blue' mr={3} onClick={onClose}>
                         Cerrar

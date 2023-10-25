@@ -7,6 +7,7 @@ const URL = FEATURES.loans;
 
 export const createLoan = async( values: Loan) => {
 
+    console.log("values createLoan", values);
     const formData = new FormData();
 
     for(const key in values){
@@ -22,13 +23,12 @@ export const createLoan = async( values: Loan) => {
     }
 }
 
-export const getLoans = async(filters?: FltersLoan) => {
+export const getAllLoans = async(filters?: FltersLoan) => {
     try {
-
         const { data } = await Http.get(`/${URL}`, {
             params: filters,
         })
-        return data!.students;
+        return data!.loans;
 
     } catch (error) {
         console.log('error', error)

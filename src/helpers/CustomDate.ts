@@ -12,4 +12,10 @@ export const customDateRevert = (value: string) => {
     return formattedDate;
 }
 
+export const returnDateFormat = () => {
+    const fecha = moment().format('YYYY-MM-DD');
+
+    return fecha;
+}
+
 

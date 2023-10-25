@@ -6,7 +6,6 @@ export const INITIALVALUES: Loan = {
   last_name            : '',
   capital              : 0,
   money_delivery_date  : '',
-  active               : true,
 }
 
 export const LoanValidationSchema = Yup.object({
@@ -14,5 +13,4 @@ export const LoanValidationSchema = Yup.object({
     last_name: Yup.string().required('Este campo es requerido'),
     capital: Yup.number().min(100, 'El monto no debe ser inferior a S/.100').required('Este campo es requerido'),
     money_delivery_date: Yup.string().required('Este campo es requerido'),
-    active: Yup.boolean(),
 });

@@ -23,47 +23,47 @@ export const PersonalInformationForm: FC<PropsPersonalInformation> = ({setFieldV
             
             <HStack>
                 <InputField
-                    name='name'
-                    label='Nombre'
-                    type='text'
-                    variant={'filled'}
+                    name    = 'name'
+                    label   = 'Nombre'
+                    type    = 'text'
+                    variant = {'filled'}
                 />
             
                 <InputField
-                    name='phone_number'
-                    label='Teléfono'
-                    type='text'
-                    variant={'filled'}
+                    name    = 'phone_number'
+                    label   = 'Teléfono'
+                    type    = 'text'
+                    variant = {'filled'}
                 />
             </HStack>
 
             <InputField
-                name='last_name'
-                label='Apellido Paterno'
-                type='text'
-                variant={'filled'}
+                name    = 'last_name'
+                label   = 'Apellido Paterno'
+                type    = 'text'
+                variant = {'filled'}
             />
     
             <InputField
-                name='mother_last_name'
-                label='Apellido Materno'
-                type='text'
-                variant={'filled'}
+                name    = 'mother_last_name'
+                label   = 'Apellido Materno'
+                type    = 'text'
+                variant = {'filled'}
             />
 
             <InputField
-                name='address'
-                label='Domicilio'
-                type='text'
-                variant={'filled'}
+                name    = 'address'
+                label   = 'Domicilio'
+                type    = 'text'
+                variant = {'filled'}
             />
             <Text fontWeight={'bold'}>
                 Foto
             </Text>
             <Input
-                name='image'
-                onChange={(e: SafeAny)=>setFieldValue('image', e.target.files[0])}
-                type='file'
+                name        = 'image'
+                onChange    = {(e: SafeAny)=>setFieldValue('image', e.target.files[0])}
+                type        = 'file'
             />
                 
         </VStack>
