@@ -56,7 +56,10 @@ export const AllStudents: FC<Props> = ({ edit }) => {
         >
           <Filter data={data} setFilteredData={setFilteredData}/>
 
-          <HStack gap={10}>
+          <HStack 
+            gap={10}
+            flexDirection={["column","column","row","row"]}
+          >
             <FormStudent  edit={ edit }/>
             <Box>
               <Text color={'white'}>

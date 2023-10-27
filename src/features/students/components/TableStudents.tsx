@@ -165,8 +165,9 @@ export const TableStudents: FC<TableStudentsProps> = ({
 
                                     <DeleteModal
                                         color               =   {'red'}
+                                        deleteIdentification=   {"student"}
                                         icon                =   {true}
-                                        student_id          =   {student_id!}
+                                        element_id          =   {student_id!}
                                         last_name           =   {last_name}
                                         mother_last_name    =   {mother_last_name}
                                         msg                 =   {'Estás seguro de eliminar al alumn@: '}

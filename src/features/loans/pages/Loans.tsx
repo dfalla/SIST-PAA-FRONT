@@ -14,7 +14,6 @@ export const Loans = () => {
 
   const orderGetAllLoans = orderLoans(getAllLoans)
 
-  console.log("orderGetAllLoans", orderGetAllLoans)
 
   return (
     <Box
@@ -26,7 +25,7 @@ export const Loans = () => {
       </Box>
       <TableLoans
         heads={heads}
-        loans={getAllLoans}
+        loans={orderGetAllLoans}
       />
     </Box>
   )

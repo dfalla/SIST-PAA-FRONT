@@ -14,25 +14,31 @@ import {
 } from '@chakra-ui/react'
 import { LiaTrashSolid } from "react-icons/lia";
 import { useDeleteStudent } from '@/features/students/hooks';
+import { useDeleteLoan } from '@/features';
 
 interface Props {
-    icon?            : boolean;
-    student_id       : string;
-    msg              : string;
-    name             : string;
-    text             : string;
-    last_name        : string;
-    mother_last_name : string;
-    color            : string;
+    icon?                    : boolean;
+    deleteIdentification     : string;
+    element_id               : string;
+    msg                      : string;
+    name?                    : string;
+    text                     : string;
+    last_name?               : string;
+    mother_last_name?        : string;
+    color                    : string;
 }
 
 
-export const DeleteModal: FC<Props> = ({ last_name, mother_last_name, name, msg, color, student_id, text, icon }) => {
+export const DeleteModal: FC<Props> = ({ last_name, mother_last_name, name, msg, color, element_id, text, icon, deleteIdentification }) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { mutate } = useDeleteStudent();
-    const deleteStudent =(student_id: string)=> {
-        mutate(student_id)
+    const { mutate: StudentMutate } = useDeleteStudent();
+    const { mutate: LoanMutate } = useDeleteLoan()
+
+    console.log("id", element_id)
+    const deleteData =(id: string)=> {
+      if( deleteIdentification === 'student' ) StudentMutate(id)
+      if( deleteIdentification === 'loan' ) LoanMutate(id)
     }
     return (
       <>
@@ -45,7 +51,7 @@ export const DeleteModal: FC<Props> = ({ last_name, mother_last_name, name, msg,
             _hover={{
                 cursor: 'pointer'
             }}
-            aria-label='delete student'
+            aria-label='delete'
             icon={<LiaTrashSolid fontSize={25}/>} 
           />) : 
           (
@@ -73,14 +79,14 @@ export const DeleteModal: FC<Props> = ({ last_name, mother_last_name, name, msg,
             <ModalHeader>{ text }</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-                { `${ msg } ${ name } ${ last_name } ${ mother_last_name }` }
+                { `${ msg } ${ name ? name : '' } ${ last_name ? last_name : ''} ${ mother_last_name ? mother_last_name : '' }` }
             </ModalBody>
             <ModalFooter>
                 <Button colorScheme='blue' mr={3} onClick={onClose}>
                  Cerrar
                 </Button>
                 <Button 
-                    onClick={()=>{ deleteStudent(student_id) }}
+                    onClick={()=>{ deleteData(element_id) }}
                     variant='ghost' 
                 >
                  Eliminar

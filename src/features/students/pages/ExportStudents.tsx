@@ -30,11 +30,11 @@ export const ExportStudents = () => {
 
     <Box mt={5}> 
       <TableStudents
-        data = { data! }
-        heads={HEADS}
-        title="Estudiantes Registrados" 
-        variant='striped'
-        exportTableExcel={true}
+        data             = { data! }
+        heads            = {HEADS}
+        title            = "Estudiantes Registrados" 
+        variant          = 'striped'
+        exportTableExcel = {true}
       />
     </Box>
   )

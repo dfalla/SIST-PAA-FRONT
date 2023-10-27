@@ -91,13 +91,14 @@ export const CardStudent = ({id_student, image, last_name, mother_last_name, nam
           Editar
         </Button>
         <DeleteModal
-          color={'red'}
-          student_id={id_student}
-          last_name={last_name}
-          mother_last_name={mother_last_name}
-          msg={'Estás seguro de eliminar al alumn@: '}
-          name={name}
-          text={'Eliminar alumno'}
+          color                  = {'red'}
+          element_id             = {id_student}
+          deleteIdentification   = 'student'
+          last_name              = {last_name}
+          mother_last_name       = {mother_last_name}
+          msg                    = {'Estás seguro de eliminar al alumn@: '}
+          name                   = {name}
+          text                   = {'Eliminar alumno'}
         />
       </Stack>
     </Box>

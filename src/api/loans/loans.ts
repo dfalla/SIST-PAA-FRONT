@@ -35,4 +35,13 @@ export const getAllLoans = async(filters?: FltersLoan) => {
     }
 }
 
+export const deleteLoan = async(id_loan: string) => {
+    try {
+        const { data } = await Http.delete(`/${URL}/${id_loan}`);
+        return data;
+    } catch (error) {
+        console.log('error', error)
+    }
+}
+
 

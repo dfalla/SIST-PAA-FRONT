@@ -4,17 +4,17 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
   TableContainer,
   TableCaption,
+  HStack,
+  Heading,
 
 } from "@chakra-ui/react"
 import { NewLoans } from "@/interfaces";
-
-
+import { DeleteModal } from '@/common';
 
 interface TableLoansProps {
   heads: string[];
@@ -23,7 +23,9 @@ interface TableLoansProps {
 
 export const TableLoans: FC<TableLoansProps> = ({ heads, loans }) => {
   let ganancy: number = 0;
+  
   let totalCapital: number = 0;
+
   ganancy = loans.reduce((acumulator: number, element: NewLoans) => acumulator + element.interest, 0)
 
   totalCapital = loans.reduce((acumulator: number, element: NewLoans) => acumulator + element.capital, 0)
@@ -34,7 +36,11 @@ export const TableLoans: FC<TableLoansProps> = ({ heads, loans }) => {
     >
       <TableContainer>
         <Table size='sm'>
-          <TableCaption placement= 'top'>Ganancia total: S/.{ganancy} y el capital total invertido es: S/.{totalCapital}</TableCaption>
+          <TableCaption placement= 'top'>
+            <Heading as='h3' size='lg'>
+              Ganancia total: S/.{ganancy} y el capital total invertido es: S/.{totalCapital}
+            </Heading>
+            </TableCaption>
           <Thead>
             <Tr>
               {
@@ -53,7 +59,24 @@ export const TableLoans: FC<TableLoansProps> = ({ heads, loans }) => {
                     <Td>{ capital }</Td>
                     <Td>{ interest }</Td>
                     <Td>{ money_delivery_date }</Td>
-                    <Td>{ payment_date }</Td>
+                    <Td>
+                      <HStack gap={0} justifyContent={'space-between'}>
+                        <Box> { payment_date } </Box>
+                        <Box>  
+                          <DeleteModal
+                            color = {'red'}
+                            deleteIdentification = {'loan'}
+                            msg = {'¿Desea eliminar el préstamo?'}
+                            icon = {true}
+                            text = {'Eliminar Préstamo'}
+                            element_id={loan_id}
+                          /> 
+                        </Box>
+                      </HStack>
+                       
+                      
+                     
+                    </Td>
                   </Tr>
                 ))
               }
