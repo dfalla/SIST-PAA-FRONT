@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { FormSchedule, HEADS, useDeleteSchedule, useGetAllSchedules } from "..";
 import { useNavigate } from 'react-router-dom';
+import { GROUPSCOLORS } from '@/constants';
 
 type SCHEDULE = {
   schedule_id: string;
@@ -43,6 +44,16 @@ export const Schedules: FC<Props> = ({edit}) => {
 
   const editSchedule = (schedule_id: string) => {
     navigate(`/schedules/${schedule_id}`)
+  }
+
+  const defineColor = (value: string) => {
+    if(value === GROUPSCOLORS.G1NB.GROUP) return GROUPSCOLORS.G1NB.COLOR;
+    if(value === GROUPSCOLORS.G2NB.GROUP) return GROUPSCOLORS.G2NB.COLOR;
+    if(value === GROUPSCOLORS.G3NB.GROUP) return GROUPSCOLORS.G3NB.COLOR;
+    if(value === GROUPSCOLORS.G4NB.GROUP) return GROUPSCOLORS.G4NB.COLOR;
+    if(value === GROUPSCOLORS.G5NB.GROUP) return GROUPSCOLORS.G5NB.COLOR;
+    if(value === GROUPSCOLORS.GAB.GROUP) return GROUPSCOLORS.GAB.COLOR;
+    if(value === GROUPSCOLORS.GI.GROUP) return GROUPSCOLORS.GI.COLOR;
   }
 
 
@@ -85,12 +96,12 @@ export const Schedules: FC<Props> = ({edit}) => {
                  }: SCHEDULE)=>(
                   <Tr key={schedule_id}>
                     <Td>{hour}.p.m</Td>
-                    <Td bg={'yellow'}>{monday}</Td>
-                    <Td>{tuesday}</Td>
-                    <Td>{wednesday}</Td>
-                    <Td>{thursday}</Td>
-                    <Td>{friday}</Td>
-                    <Td>{saturday}</Td>
+                    <Td bg={defineColor(monday)} color={'white'}>{monday}</Td>
+                    <Td bg={defineColor(tuesday)} color={'white'}>{tuesday}</Td>
+                    <Td bg={defineColor(wednesday)} color={'white'}>{wednesday}</Td>
+                    <Td bg={defineColor(thursday)} color={'white'}>{thursday}</Td>
+                    <Td bg={defineColor(friday)} color={'white'}>{friday}</Td>
+                    <Td bg={defineColor(saturday)} color={'white'}>{saturday}</Td>
                     <Td>
                       <HStack
                         gap={2}

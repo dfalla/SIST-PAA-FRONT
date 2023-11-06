@@ -35,7 +35,6 @@ export const DeleteModal: FC<Props> = ({ last_name, mother_last_name, name, msg,
     const { mutate: StudentMutate } = useDeleteStudent();
     const { mutate: LoanMutate } = useDeleteLoan()
 
-    console.log("id", element_id)
     const deleteData =(id: string)=> {
       if( deleteIdentification === 'student' ) StudentMutate(id)
       if( deleteIdentification === 'loan' ) LoanMutate(id)

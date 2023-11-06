@@ -56,7 +56,8 @@ export const updateStudent = async({id_student, values} : UpdateStudenttArgs) =>
     }
 
     try {
-        await Http.put(`/${URL}/${id_student}`, formData)
+       const {data} =  await Http.put(`/${URL}/${id_student}`, formData)
+       console.log("data", data)
     } catch (error) {
         console.log('error capturado 😤', error)
     }

@@ -33,7 +33,7 @@ export const AllStudents: FC<Props> = ({ edit }) => {
 
   if(filteredData !== undefined) {
     salary = data!.filter((student: STUDENT)=>student.active === 'si').reduce((acumulator: number, element: STUDENT) => acumulator + element.amount_payable, 0)
-
+    // console.log("filteredData", filteredData)
     const { adults, children, youths} = orderDataForHoursRegistred(filteredData)
     childrenArr = children;
     youthsArr = youths;

@@ -175,6 +175,7 @@ export const FormStudent: FC<Props> = memo(({ edit, icon, id }) => {
                             onSubmit={(values, { resetForm })=>{
                                 const { valuesToSend } = transformData(values)
 
+                                console.log("FormValues", valuesToSend);
                                 if(!id_student && !edit){
                                     addStudent.mutate(valuesToSend)
                                 }

@@ -39,6 +39,36 @@ export const MESSAGES_NOTIFICATIONS = {
         }
 
     }
+}
 
-
+export const GROUPSCOLORS = {
+    GAB: {
+        GROUP: 'GAB',
+        COLOR: 'violet'
+    },
+    G1NB: {
+        GROUP: 'G1NB',
+        COLOR: 'grey'
+    },
+    G2NB: {
+        GROUP: 'G2NB',
+        COLOR: 'green'
+    },
+    G3NB: {
+        GROUP: 'G3NB',
+        COLOR: 'blue'
+    },
+    G4NB: {
+        GROUP: 'G4NB',
+        COLOR: 'red'
+    },
+    G5NB: {
+        GROUP: 'G5NB',
+        COLOR: 'black'
+    },
+    GI: {
+        GROUP: 'GI',
+        COLOR: 'brown'
+    },
+    
 }
